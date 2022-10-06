@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.SealRecordDao">
+
+
+    <select id="listSealRecordsDTO" resultType="com.office.qljt.qljtoffice.dto.SealRecordDTO">
+        SELECT a, sl, su
+        FROM (SELECT *
+              FROM tb_seal_record
+              ORDER BY `time` DESC  LIMIT #{current},#{size}) a
+                 JOIN tb_seal sl ON a.seal = sl.id
+                 JOIN tb_user u ON a.user_id = u.id
+                 JOIN tb_sdu su ON u.sdu_id = su.sdu_id
+        ORDER BY a.time DESC
+    </select>
+
+    <select id="listAllSealRecordsDTO" resultType="com.office.qljt.qljtoffice.dto.SealRecordDTO">
+        SELECT a, sl, su
+        FROM (SELECT *
+              FROM tb_seal_record
+              ORDER BY `time` DESC ) a
+                 JOIN tb_seal sl ON a.seal = sl.id
+                 JOIN tb_user u ON a.user_id = u.id
+                 JOIN tb_sdu su ON u.sdu_id = su.sdu_id
+        ORDER BY a.time DESC
+    </select>
+
+</mapper>

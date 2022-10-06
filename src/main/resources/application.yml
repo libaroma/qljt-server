@@ -1,0 +1,93 @@
+server:
+  port: 8081
+
+spring:
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # mysql
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${ip}:3306/office?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: Qljt@626
+    hikari:
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  # redis
+  redis:
+    host: ${ip}
+    port: 6378
+    password: my_lib_hyz_1105_hyz_cool_h2y2z2_0319_l1b1_antong_0420_l2y2j2_1103_my_lib_hyz_1105_hyz_cool_h2y2z2_0319_l1b1_antong_0420_l2y2j2_1103
+  # mq
+  rabbitmq:
+    host: ${ip}
+    port: 5672
+    username: admin
+    password: mylibhyz
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3 #最大连接数
+          initial-interval: 3000 #间隔
+  # 邮箱
+  mail:
+    host: smtp.163.com
+    username: qljt_office@163.com
+    password: MQGSACWMPJXWRFXQ
+    default-encoding: UTF-8
+    port: 25
+    properties:
+      mail:
+      smtp:
+      auth: true
+      socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
+  # 最大尺寸
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size:  10MB
+
+# 搜索
+search:
+  mode: mysql
+
+# 图片服务
+upload:
+  mode: local
+  local:
+    domain: https://qljt.hyz.cool/files/
+    path: /home/ubuntu/app/files/
+
+# 网站
+website:
+  url: https://${domain}
+
+ip: 43.138.49.193
+domain: www.hyz.cool
+
+
+knife4j:
+  enable: true
+  basic:
+    enable: true
+    username: mylibhyz
+    password: mylibhyz001105
