@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -26,9 +26,6 @@ public class DispatchRecords {
 	@TableId(value = "id")
 	private String id;
 
-	/**
-	 * openid
-	 */
 	private String openid;
 
 	/**
@@ -37,22 +34,12 @@ public class DispatchRecords {
 	private String userId;
 
 	/**
-	 * 单位
-	 */
-	private String company;
-
-	/**
-	 * 发文日期
-	 */
-	private String confirmDate;
-
-	/**
 	 * 方式
 	 */
 	private String method;
 
 	/**
-	 * 日期
+	 * 发文日期
 	 */
 	private String date;
 
@@ -62,12 +49,7 @@ public class DispatchRecords {
 	private String meetingDate;
 
 	/**
-	 * 物资描述
-	 */
-	private String confirmUser;
-
-	/**
-	 * 原因描述
+	 * 发文标题
 	 */
 	private String title;
 
@@ -79,7 +61,7 @@ public class DispatchRecords {
 	/**
 	 * 序号
 	 */
-	private Long index;
+	private Long sequence;
 
 	/**
 	 * 时间

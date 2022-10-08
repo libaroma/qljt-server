@@ -1,20 +1,24 @@
 package com.office.qljt.qljtoffice.controller;
 
 import com.office.qljt.qljtoffice.annotation.CheckTooFrequentCommit;
-import com.office.qljt.qljtoffice.dto.SealRecordDTO;
-import com.office.qljt.qljtoffice.service.SealRecordService;
+import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
+import com.office.qljt.qljtoffice.annotation.OptLog;
+import com.office.qljt.qljtoffice.dto.SealRecordsDTO;
+import com.office.qljt.qljtoffice.service.SealRecordsService;
+import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
-import com.office.qljt.qljtoffice.vo.SealRecordVO;
+import com.office.qljt.qljtoffice.vo.SealRecordsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
 
 /**
  * @author 续加仪
@@ -22,19 +26,21 @@ import javax.validation.Valid;
  */
 @Api(tags = "印信申请模块")
 @RestController
+@RequestMapping("/seal/records")
 public class SealRecordsController {
     @Autowired
-    private SealRecordService sealRecordService;
+    private SealRecordsService sealRecordService;
 
     /**
      * 查看印信申请历史
      *
      * @return 查看印信申请历史
      */
-    @ApiOperation(value = "查看全部印信申请历史")
-    @GetMapping("/seal/record/list")
-    public Result<PageResult<SealRecordDTO>> listSealRecords() {
-        return Result.ok(sealRecordService.listSealRecords());
+    @CheckUserAuth(role = NORMAL)
+    @ApiOperation(value = "查看印信申请历史")
+    @GetMapping("/list")
+    public Result<PageResult<SealRecordsDTO>> listSealRecordsDTO() {
+        return Result.ok(sealRecordService.listSealRecordsDTO());
     }
 
     /**
@@ -42,12 +48,24 @@ public class SealRecordsController {
      *
      * @return 查看印信申请历史
      */
+    @CheckUserAuth(role = ADMIN)
     @ApiOperation(value = "查看全部印信申请历史")
-    @GetMapping("/seal/record/all")
-    public Result<PageResult<SealRecordDTO>> listAllSealRecords() {
-        return Result.ok(sealRecordService.listAllSealRecords());
+    @GetMapping("/all")
+    public Result<PageResult<SealRecordsDTO>> listAllSealRecordsDTO() {
+        return Result.ok(sealRecordService.listAllSealRecordsDTO());
     }
 
+    /**
+     * 条件查询印信申请信息
+     *
+     * @return 条件查询印信申请信息
+     */
+    @CheckUserAuth(role = ADMIN)
+    @ApiOperation(value = "条件查询印信申请信息")
+    @GetMapping("/condition")
+    public Result<PageResult<SealRecordsDTO>> listSealRecordsDTOByCondition(ConditionVO conditionVO) {
+        return Result.ok(sealRecordService.listSealRecordsDTOByCondition(conditionVO));
+    }
     /**
      * 保存或更新印信申请
      *
@@ -55,9 +73,10 @@ public class SealRecordsController {
      * @return 保存或更新印信申请
      */
     @CheckTooFrequentCommit
+    @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新印信申请")
-    @PostMapping("/seal/record/sou")
-    public Result<?> saveOrUpdateSealRecord(@Valid @RequestBody SealRecordVO sealRecordVO) {
-        return sealRecordService.saveOrUpdateSealRecord(sealRecordVO);
+    @PostMapping("/sou")
+    public Result<?> saveOrUpdateSealRecord(@Valid @RequestBody SealRecordsVO sealRecordVO) {
+        return sealRecordService.saveOrUpdateSealRecords(sealRecordVO);
     }
 }

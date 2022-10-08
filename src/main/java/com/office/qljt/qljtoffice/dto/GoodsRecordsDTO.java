@@ -1,16 +1,15 @@
 package com.office.qljt.qljtoffice.dto;
 
-import lombok.Data;
-import lombok.Builder;
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
- * @author  续加仪
- * @date 2022-10-05
+ * @author 续加仪
+ * @date 2022-10-06
  */
 
 @Data
@@ -19,74 +18,69 @@ import java.util.Date;
 @NoArgsConstructor
 public class GoodsRecordsDTO {
 
-	/**
-	 * id
-	 */
-	private String id;
+    /**
+     * id
+     */
+    private String id;
 
-	/**
-	 * openid
-	 */
-	private String openid;
+    /**
+     * openid
+     */
+    private String openid;
 
-	/**
-	 * 用户id
-	 */
-	private String userId;
+    /**
+     * 用户id
+     */
+    private String userId;
 
-	/**
-	 * 单位
-	 */
-	private String company;
+    /**
+     * 单位
+     */
+    private String company;
 
-	/**
-	 * 名称
-	 */
-	private String goods;
+    /**
+     * 物资id
+     */
+    private String goodsId;
 
-	/**
-	 * 物资类别
-	 */
-	private String category;
+    /**
+     * 原因描述
+     */
+    private String description;
 
-	/**
-	 * 物资描述
-	 */
-	private String goodsOptions;
+    /**
+     * 电话
+     */
+    private String contact;
 
-	/**
-	 * 原因描述
-	 */
-	private String description;
+    /**
+     * 数量
+     */
+    private Long count;
 
-	/**
-	 * 照片
-	 */
-	private String cover;
+    /**
+     * 总数量
+     */
+    private Long goodsTotalCount;
 
-	/**
-	 * 电话
-	 */
-	private String contact;
+    /**
+     * 剩余数量
+     */
+    private Long goodsLeftCount;
 
-	/**
-	 * 数量
-	 */
-	private Long count;
+    /**
+     * 时间
+     */
+    private Date time;
 
-	/**
-	 * 总数量
-	 */
-	private Long goodsTotalCount;
+    /**
+     * userInfo
+     */
+    private UserDTO userInfo;
 
-	/**
-	 * 剩余数量
-	 */
-	private Long goodsLeftCount;
-
-	/**
-	 * 时间
-	 */
-	private Date time;
+    /**
+     * 物资信息
+     */
+    private GoodsDTO goodsInfo;
 
 }

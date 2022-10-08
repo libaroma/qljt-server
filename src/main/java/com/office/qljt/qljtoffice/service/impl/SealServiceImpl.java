@@ -2,12 +2,12 @@ package com.office.qljt.qljtoffice.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.SealDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.entity.Seal;
 import com.office.qljt.qljtoffice.service.SealService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
+import com.office.qljt.qljtoffice.utils.TextUtils;
 import com.office.qljt.qljtoffice.vo.DeleteVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SealVO;
@@ -30,22 +30,17 @@ public class SealServiceImpl extends ServiceImpl<SealDao, Seal> implements SealS
 
     @Autowired
     private SealDao sealDao;
-    @Autowired
-    private UserDao userDao;
 
     @Override
-    public PageResult<SealDTO> listSeals() {
+    public PageResult<SealDTO> listSealsDTO() {
         return new PageResult<>(sealDao.listSealsDTO(), sealDao.selectCount(null));
     }
 
     @Override
     public void savaOrUpdateSeal(SealVO sealVO) {
-//        if (TextUtils.isEmpty(userId)) return false;
-//        UserDTO user = userDao.getUser(userId);
-//        if (user == null || user.getRole() > 0) return false;
         Seal seal = BeanCopyUtils.copyObject(sealVO, Seal.class);
-        seal.setStatus(1L);
-        seal.setId(idWorker.nextId() + "");
+        if (seal.getStatus() == null) seal.setStatus(1L);
+        if (TextUtils.isEmpty(seal.getId())) seal.setId(idWorker.nextId() + "");
         this.saveOrUpdate(seal);
     }
 
@@ -56,8 +51,8 @@ public class SealServiceImpl extends ServiceImpl<SealDao, Seal> implements SealS
                 .map(id -> Seal.builder()
                         .id(id)
                         .status(deleteVO.getStatus())
-                        .build()
-                ).collect(Collectors.toList());
+                        .build())
+                .collect(Collectors.toList());
         this.updateBatchById(sealList);
     }
 }

@@ -1,6 +1,8 @@
 package com.office.qljt.qljtoffice.controller;
 
 import com.office.qljt.qljtoffice.annotation.CheckTooFrequentCommit;
+import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
+import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.service.SealService;
 import com.office.qljt.qljtoffice.vo.DeleteVO;
@@ -14,12 +16,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.REMOVE;
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.UPDATE;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
+
 /**
  * @author 续加仪
  * @date 2022/10/5
  */
-@Api(tags = "公章模块")
+@Api(tags = "公章信息模块")
 @RestController
+@RequestMapping("/seal")
 public class SealController {
 
 
@@ -31,10 +39,11 @@ public class SealController {
      *
      * @return 查看公章列表
      */
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "查看公章列表")
-    @GetMapping("/seal/list")
-    public Result<PageResult<SealDTO>> listSeals() {
-        return Result.ok(sealService.listSeals());
+    @GetMapping("/list")
+    public Result<PageResult<SealDTO>> listSealsDTO() {
+        return Result.ok(sealService.listSealsDTO());
     }
 
     /**
@@ -43,10 +52,12 @@ public class SealController {
      * @param sealVO 保存公章
      * @return 保存公章
      */
-//    @OptLog(optType = UPDATE)
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = ADMIN)
+    @OptLog(optType = UPDATE)
     @ApiOperation(value = "保存公章")
-    @PostMapping("/seal/sou")
-    public Result<?> saveOrUpdateSeals(@Valid @RequestBody SealVO sealVO) {
+    @PostMapping("/sou")
+    public Result<?> saveOrUpdateSeal(@Valid @RequestBody SealVO sealVO) {
         sealService.savaOrUpdateSeal(sealVO);
         return Result.ok();
     }
@@ -58,9 +69,11 @@ public class SealController {
      * @return 批量删除公章
      */
     @CheckTooFrequentCommit
+    @CheckUserAuth(role = ADMIN)
+    @OptLog(optType = REMOVE)
     @ApiOperation(value = "批量删除公章")
-    @DeleteMapping("/seal/del")
-    public Result<?> dealSeals(@Valid @RequestBody DeleteVO deleteVO) {
+    @DeleteMapping("/del")
+    public Result<?> updateSealDelete(@Valid @RequestBody DeleteVO deleteVO) {
         sealService.updateSealDelete(deleteVO);
         return Result.ok();
     }

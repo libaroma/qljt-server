@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -39,7 +39,7 @@ public class Space {
 	/**
 	 * 次序
 	 */
-	private Long order;
+	private Long sequence;
 
 	/**
 	 * 状态(1可用，0删除)

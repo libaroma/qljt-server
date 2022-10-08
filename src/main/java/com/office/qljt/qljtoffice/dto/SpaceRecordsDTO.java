@@ -1,9 +1,8 @@
 package com.office.qljt.qljtoffice.dto;
 
-import lombok.Data;
-import lombok.Builder;
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -93,5 +92,15 @@ public class SpaceRecordsDTO {
 	 * 时间
 	 */
 	private Date time;
+
+	/**
+	 * userInfo
+	 */
+	private UserDTO userInfo;
+
+	/**
+	 * spaceInfo
+	 */
+	private SpaceDTO spaceInfo;
 
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -28,10 +28,7 @@ public class DispatchRecordsVO {
    	@ApiModelProperty(name = "id",value="id",dataType = "String")
 	private String id;
 
-	/**
-	 * openid
-	 */
-   	@ApiModelProperty(name = "_openid",value="openid",dataType = "String")
+   	@ApiModelProperty(name = "openid",value="null",dataType = "String")
 	private String openid;
 
 	/**
@@ -40,20 +37,6 @@ public class DispatchRecordsVO {
    	@NotBlank(message = "用户id不能为空")
 	@ApiModelProperty(name = "user_id",value="用户id",required = true,dataType = "String")
 	private String userId;
-
-	/**
-	 * 单位
-	 */
-   	@NotBlank(message = "单位不能为空")
-	@ApiModelProperty(name = "company",value="单位",required = true,dataType = "String")
-	private String company;
-
-	/**
-	 * 发文日期
-	 */
-   	@NotBlank(message = "发文日期不能为空")
-	@ApiModelProperty(name = "confirm_date",value="发文日期",required = true,dataType = "String")
-	private String confirmDate;
 
 	/**
 	 * 方式
@@ -65,8 +48,8 @@ public class DispatchRecordsVO {
 	/**
 	 * 日期
 	 */
-   	@NotBlank(message = "日期不能为空")
-	@ApiModelProperty(name = "date",value="日期",required = true,dataType = "String")
+   	@NotBlank(message = "发文日期不能为空")
+	@ApiModelProperty(name = "date",value="发文日期",required = true,dataType = "String")
 	private String date;
 
 	/**
@@ -76,17 +59,10 @@ public class DispatchRecordsVO {
 	private String meetingDate;
 
 	/**
-	 * 物资描述
+	 * 发文标题
 	 */
-   	@NotBlank(message = "物资描述不能为空")
-	@ApiModelProperty(name = "confirm_user",value="物资描述",required = true,dataType = "String")
-	private String confirmUser;
-
-	/**
-	 * 原因描述
-	 */
-   	@NotBlank(message = "原因描述不能为空")
-	@ApiModelProperty(name = "title",value="原因描述",required = true,dataType = "String")
+   	@NotBlank(message = "发文标题不能为空")
+	@ApiModelProperty(name = "title",value="发文标题",required = true,dataType = "String")
 	private String title;
 
 	/**
@@ -96,11 +72,5 @@ public class DispatchRecordsVO {
 	@ApiModelProperty(name = "year",value="年份",required = true,dataType = "Long")
 	private Long year;
 
-	/**
-	 * 序号
-	 */
-   	@NotNull(message = "序号不能为空")
-	@ApiModelProperty(name = "index",value="序号",required = true,dataType = "Long")
-	private Long index;
 
 }

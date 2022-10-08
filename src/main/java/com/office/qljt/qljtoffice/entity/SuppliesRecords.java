@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -42,14 +42,14 @@ public class SuppliesRecords {
 	private String company;
 
 	/**
-	 * 物资名称
+	 * 设备名称
 	 */
 	private String name;
 
 	/**
-	 * 物资类别
+	 * 设备分类
 	 */
-	private String category;
+	private String suppliesCategory;
 
 	/**
 	 * 原因描述

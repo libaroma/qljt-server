@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -46,8 +46,8 @@ public class SpaceVO {
 	 * 次序
 	 */
    	@NotNull(message = "次序不能为空")
-	@ApiModelProperty(name = "order",value="次序",required = true,dataType = "Long")
-	private Long order;
+	@ApiModelProperty(name = "sequence",value="次序",required = true,dataType = "Long")
+	private Long sequence;
 
 	/**
 	 * 状态(1可用，0删除)

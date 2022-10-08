@@ -1,5 +1,7 @@
 package com.office.qljt.qljtoffice.utils;
 
+import com.office.qljt.qljtoffice.dto.UserDTO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 
@@ -17,9 +19,12 @@ public class UserUtils {
      *
      * @return 用户登录信息
      */
-//    public static UserDetailDTO getLoginUser() {
-//        return null;
-////        return (UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    }
+    public static UserDTO getLoginUser() {
+        try {
+            return (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.SuppliesRecordsDao">
+
+
+    <resultMap id="UserDTO" type="com.office.qljt.qljtoffice.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="sduId" column="sdu_id"/>
+        <association property="sduInfo" javaType="com.office.qljt.qljtoffice.dto.SduDTO" column="sdu_id"
+                     select="selectSdu"/>
+    </resultMap>
+
+    <select id="selectSdu" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
+        SELECT *
+        FROM tb_sdu
+        WHERE `id` = #{sdu_id}
+    </select>
+
+    <resultMap id="SuppliesRecordsDTO" type="com.office.qljt.qljtoffice.dto.SuppliesRecordsDTO">
+
+        <result property="userId" column="user_id"/>
+        <result property="suppliesCategory" column="supplies_category"/>
+        <association property="userInfo" select="selectUser"
+                     javaType="com.office.qljt.qljtoffice.dto.UserDTO"
+                     column="user_id"/>
+        <association property="suppliesCategoryInfo" select="selectSuppliesCategory"
+                     javaType="com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO"
+                     column="supplies_category"/>
+    </resultMap>
+
+
+    <select id="selectUser" resultMap="UserDTO">
+        SELECT *
+        FROM tb_user
+        WHERE `id` = #{user_id}
+    </select>
+
+    <select id="selectSuppliesCategory" resultType="com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO">
+        SELECT *
+        FROM tb_supplies_category
+        WHERE `id` = #{supplies_category}
+    </select>
+
+    <select id="listSuppliesRecordsDTO" resultMap="SuppliesRecordsDTO">
+        SELECT *
+        FROM tb_supplies_records
+        ORDER BY `time` DESC
+        LIMIT #{current},#{size}
+    </select>
+
+    <select id="listAllSuppliesRecordsDTO" resultMap="SuppliesRecordsDTO">
+        SELECT *
+        FROM tb_supplies_records
+        ORDER BY `time` DESC
+    </select>
+
+
+    <select id="listSuppliesRecordsDTOByCondition" resultMap="SuppliesRecordsDTO">
+        SELECT *
+        FROM tb_supplies_records
+        <where>
+            <if test="condition.suppliesCategory != null">
+                and supplies_category = #{condition.suppliesCategory}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listSuppliesRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SuppliesRecordsDTO">
+        SELECT *
+        FROM tb_supplies_records
+        <where>
+            <if test="condition.suppliesCategory != null">
+                and supplies_category = #{condition.suppliesCategory}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+
+</mapper>

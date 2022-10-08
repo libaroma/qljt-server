@@ -1,10 +1,11 @@
 package com.office.qljt.qljtoffice.config;
 
 
-import com.office.qljt.qljtoffice.handler.ApiEncoderInterceptor;
+import com.office.qljt.qljtoffice.handler.ApiCheckTooFrequentCommitInterceptorImpl;
+import com.office.qljt.qljtoffice.handler.ApiCheckUserAuthInterceptorImpl;
+import com.office.qljt.qljtoffice.handler.ApiEncoderInterceptorImpl;
 import com.office.qljt.qljtoffice.handler.PageableHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -29,21 +30,26 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 
-    @Bean
-    public ApiEncoderInterceptor getApiEncoderInterceptor() {
-        return new ApiEncoderInterceptor();
-    }
+    @Autowired
+    private ApiCheckTooFrequentCommitInterceptorImpl checkTooFrequentCommitInterceptor;
 
     @Autowired
-    private ApiEncoderInterceptor apiEncoderInterceptor;
+    private ApiCheckUserAuthInterceptorImpl checkUserAuthInterceptor;
+
+    @Autowired
+    private ApiEncoderInterceptorImpl apiEncoderInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new PageableHandlerInterceptor());
-        //api请求过滤
+        //api请求频繁过滤
+        registry.addInterceptor(checkTooFrequentCommitInterceptor);
+        //api请求权限过滤
+        registry.addInterceptor(checkUserAuthInterceptor);
+        //api请求加密过滤
         registry.addInterceptor(apiEncoderInterceptor);
+        //分页拦截
+        registry.addInterceptor(new PageableHandlerInterceptor());
     }
-
 
 
 }

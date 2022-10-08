@@ -1,8 +1,6 @@
 package com.office.qljt.qljtoffice.strategy.impl;
 
-import com.office.qljt.qljtoffice.dao.ArticleDao;
 import com.office.qljt.qljtoffice.strategy.SearchStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -14,8 +12,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("mySqlSearchStrategyImpl")
 public class MySqlSearchStrategyImpl implements SearchStrategy {
-    @Autowired
-    private ArticleDao articleDao;
+//    @Autowired
+//    private ArticleDao articleDao;
 
 //    @Override
 //    public List<ArticleSearchDTO> searchArticle(String keywords) {

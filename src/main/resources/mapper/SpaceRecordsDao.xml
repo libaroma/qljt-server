@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.SpaceRecordsDao">
+
+
+    <resultMap id="UserDTO" type="com.office.qljt.qljtoffice.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="sduId" column="sdu_id"/>
+        <association property="sduInfo" javaType="com.office.qljt.qljtoffice.dto.SduDTO" column="sdu_id"
+                     select="selectSdu"/>
+    </resultMap>
+
+    <select id="selectSdu" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
+        SELECT *
+        FROM tb_sdu
+        WHERE `id` = #{sdu_id}
+    </select>
+
+
+    <select id="selectUser" resultMap="UserDTO">
+        SELECT *
+        FROM tb_user
+        WHERE `id` = #{user_id}
+    </select>
+
+    <resultMap id="SpaceRecordsDTO" type="com.office.qljt.qljtoffice.dto.SpaceRecordsDTO">
+
+        <result property="userId" column="user_id"/>
+        <result property="space" column="space"/>
+        <association property="userInfo" select="selectUser"
+                     javaType="com.office.qljt.qljtoffice.dto.UserDTO"
+                     column="user_id">
+        </association>
+        <association property="spaceInfo" select="selectSpace"
+                     javaType="com.office.qljt.qljtoffice.dto.SpaceDTO"
+                     column="space"/>
+    </resultMap>
+
+
+    <select id="selectSpace" resultType="com.office.qljt.qljtoffice.dto.SpaceDTO">
+        SELECT *
+        FROM tb_space
+        WHERE `id` = #{space}
+    </select>
+
+    <select id="listSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
+        SELECT *
+        FROM tb_space_records
+        ORDER BY `time` DESC
+        LIMIT #{current},#{size}
+    </select>
+
+    <select id="listAllSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
+        SELECT *
+        FROM tb_space_records
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listSpaceRecordsDTOByCondition" resultMap="SpaceRecordsDTO">
+        SELECT *
+        FROM tb_space_records
+        <where>
+            <if test="condition.space != null">
+                and space = #{condition.space}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listSpaceRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SpaceRecordsDTO">
+        SELECT *
+        FROM tb_space_records
+        <where>
+            <if test="condition.space != null">
+                and space = #{condition.space}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+</mapper>

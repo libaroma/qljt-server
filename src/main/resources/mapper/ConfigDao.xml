@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.ConfigDao">
+
+    <select id="listConfigsDTO" resultType="com.office.qljt.qljtoffice.dto.ConfigDTO">
+        SELECT *
+        FROM tb_config
+    </select>
+
+    <select id="getConfigDTOByConfigId" resultType="com.office.qljt.qljtoffice.dto.ConfigDTO">
+        SELECT *
+        FROM tb_config
+        WHERE `id` = #{id}
+    </select>
+
+</mapper>

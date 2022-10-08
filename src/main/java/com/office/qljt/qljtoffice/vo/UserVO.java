@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -40,13 +40,6 @@ public class UserVO {
    	@NotBlank(message = "学号/工号不能为空")
 	@ApiModelProperty(name = "sdu_id",value="学号/工号",required = true,dataType = "String")
 	private String sduId;
-
-	/**
-	 * 物资类别
-	 */
-   	@NotBlank(message = "物资类别不能为空")
-	@ApiModelProperty(name = "category",value="物资类别",required = true,dataType = "String")
-	private String category;
 
 	/**
 	 * 昵称

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.SpaceDao">
+
+    <select id="listSpacesDTO" resultType="com.office.qljt.qljtoffice.dto.SpaceDTO">
+        SELECT *
+        FROM tb_space
+        ORDER BY `time` ASC
+    </select>
+
+    <select id="getSpaceDTO" resultType="com.office.qljt.qljtoffice.dto.SpaceDTO">
+        SELECT *
+        FROM tb_space
+        WHERE `id` = #{sduId}
+    </select>
+
+
+</mapper>

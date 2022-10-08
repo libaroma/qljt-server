@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.GoodsRecordsDao">
+
+    <resultMap id="UserDTO" type="com.office.qljt.qljtoffice.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="sduId" column="sdu_id"/>
+        <association property="sduInfo" javaType="com.office.qljt.qljtoffice.dto.SduDTO" column="sdu_id"
+                     select="selectSdu"/>
+    </resultMap>
+
+    <select id="selectSdu" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
+        SELECT *
+        FROM tb_sdu
+        WHERE `id` = #{sdu_id}
+    </select>
+
+    <resultMap id="GoodsRecordsDTO" type="com.office.qljt.qljtoffice.dto.GoodsRecordsDTO">
+        <result property="userId" column="user_id"/>
+        <result property="goodsId" column="goods_id"/>
+        <association property="userInfo" select="selectUser"
+                     javaType="com.office.qljt.qljtoffice.dto.UserDTO"
+                     column="user_id"/>
+        <association property="goodsInfo" select="selectGoods"
+                     javaType="com.office.qljt.qljtoffice.dto.GoodsDTO"
+                     column="goods_id"/>
+    </resultMap>
+
+
+    <select id="selectUser" resultMap="UserDTO">
+        SELECT *
+        FROM tb_user
+        WHERE `id` = #{user_id}
+    </select>
+
+    <select id="selectGoods" resultType="com.office.qljt.qljtoffice.dto.GoodsDTO">
+        SELECT *
+        FROM tb_goods
+        WHERE `id` = #{goods_id}
+    </select>
+
+    <select id="listGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
+        SELECT *
+        FROM tb_goods_records
+        ORDER BY `time` DESC
+        LIMIT #{current},#{size}
+    </select>
+
+    <select id="listAllGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
+        SELECT *
+        FROM tb_goods_records
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listGoodsRecordsDTOByCondition" resultMap="GoodsRecordsDTO">
+        SELECT *
+        FROM tb_goods_records
+        <where>
+            <if test="condition.goodsId != null">
+                and goods = #{condition.goodsId}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listGoodsRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.GoodsRecordsDTO">
+        SELECT *
+        FROM tb_goods_records
+        <where>
+            <if test="condition.goodsId != null">
+                and goods = #{condition.goodsId}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+</mapper>

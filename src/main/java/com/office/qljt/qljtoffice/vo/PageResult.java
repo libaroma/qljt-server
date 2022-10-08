@@ -22,11 +22,27 @@ import java.util.List;
 @ApiModel(description = "分页对象")
 public class PageResult<T> {
 
+    public PageResult(List<T> data, Long count) {
+        this(data, 0L, count, count);
+    }
+
     /**
      * 分页列表
      */
-    @ApiModelProperty(name = "recordList", value = "分页列表", required = true, dataType = "List<T>")
-    private List<T> recordList;
+    @ApiModelProperty(name = "data", value = "分页列表", required = true, dataType = "List<T>")
+    private List<T> data;
+
+    /**
+     * 当前页
+     */
+    @ApiModelProperty(name = "current", value = "当前页", required = true, dataType = "Integer")
+    private Long current;
+
+    /**
+     * 页面尺寸
+     */
+    @ApiModelProperty(name = "size", value = "页面尺寸", required = true, dataType = "Integer")
+    private Long size;
 
     /**
      * 总数

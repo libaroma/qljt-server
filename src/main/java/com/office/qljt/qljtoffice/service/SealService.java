@@ -14,9 +14,24 @@ import com.office.qljt.qljtoffice.vo.SealVO;
 public interface SealService extends IService<Seal> {
 
 
-    PageResult<SealDTO> listSeals();
+    /**
+     * 获取公章列表
+     *
+     * @return 获取公章列表
+     */
+    PageResult<SealDTO> listSealsDTO();
 
+    /**
+     * 保存/更新公章
+     *
+     * @param sealVO 公章信息
+     */
     void savaOrUpdateSeal(SealVO sealVO);
 
+    /**
+     * 删除公章
+     *
+     * @param deleteVO 公章id
+     */
     void updateSealDelete(DeleteVO deleteVO);
 }

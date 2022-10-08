@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -33,7 +33,7 @@ public class SuppliesRecordsVO {
 	/**
 	 * openid
 	 */
-   	@ApiModelProperty(name = "_openid",value="openid",dataType = "String")
+   	@ApiModelProperty(name = "openid",value="openid",dataType = "String")
 	private String openid;
 
 	/**
@@ -51,18 +51,18 @@ public class SuppliesRecordsVO {
 	private String company;
 
 	/**
-	 * 物资名称
+	 * 设备名称
 	 */
-   	@NotBlank(message = "物资名称不能为空")
-	@ApiModelProperty(name = "name",value="物资名称",required = true,dataType = "String")
+   	@NotBlank(message = "设备名称不能为空")
+	@ApiModelProperty(name = "name",value="设备名称",required = true,dataType = "String")
 	private String name;
 
 	/**
-	 * 物资类别
+	 * 设备分类
 	 */
-   	@NotBlank(message = "物资类别不能为空")
-	@ApiModelProperty(name = "category",value="物资类别",required = true,dataType = "String")
-	private String category;
+   	@NotBlank(message = "设备分类不能为空")
+	@ApiModelProperty(name = "supplies_category",value="设备分类",required = true,dataType = "String")
+	private String suppliesCategory;
 
 	/**
 	 * 原因描述

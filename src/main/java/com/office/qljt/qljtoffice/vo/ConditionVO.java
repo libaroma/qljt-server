@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 
 /**
  * 查询条件
@@ -42,63 +40,58 @@ public class ConditionVO {
     private String keywords;
 
     /**
-     * 分类id
-     */
-    @ApiModelProperty(name = "categoryId", value = "分类id", dataType = "Integer")
-    private Integer categoryId;
-
-    /**
-     * 标签id
-     */
-    @ApiModelProperty(name = "tagId", value = "标签id", dataType = "Integer")
-    private Integer tagId;
-
-    /**
-     * 相册id
-     */
-    @ApiModelProperty(name = "albumId", value = "相册id", dataType = "Integer")
-    private Integer albumId;
-
-    /**
-     * 登录类型
-     */
-    @ApiModelProperty(name = "type", value = "登录类型", dataType = "Integer")
-    private Integer loginType;
-
-    /**
-     * 类型
-     */
-    @ApiModelProperty(name = "type", value = "类型", dataType = "Integer")
-    private Integer type;
-
-    /**
      * 状态
      */
     @ApiModelProperty(name = "status", value = "状态", dataType = "Integer")
-    private Integer status;
+    private Long status;
+
+
+    //----------------会场------------------------------
 
     /**
-     * 开始时间
+     * 会场预约日期 格式为 2022-10-7
      */
-    @ApiModelProperty(name = "startTime", value = "开始时间", dataType = "LocalDateTime")
-    private LocalDateTime startTime;
+    @ApiModelProperty(name = "date", value = "会场预约日期", dataType = "String")
+    private String date;
 
     /**
-     * 结束时间
+     * 会场 space id
      */
-    @ApiModelProperty(name = "endTime", value = "结束时间", dataType = "LocalDateTime")
-    private LocalDateTime endTime;
+    @ApiModelProperty(name = "space", value = "会场", dataType = "String")
+    private String space;
+
+    //-----------------发文-----------------------------
+    /**
+     * 发文 method id
+     */
+    @ApiModelProperty(name = "method", value = "发文方式", dataType = "String")
+    private String method;
 
     /**
-     * 是否删除
+     * 发文年份 year
      */
-    @ApiModelProperty(name = "isDelete", value = "是否删除", dataType = "Integer")
-    private Integer isDelete;
+    @ApiModelProperty(name = "year", value = "发文年份", dataType = "Integer")
+    private Long year;
 
+    //----------------设备------------------------------
     /**
-     * 是否审核
+     * 设备分类
      */
-    @ApiModelProperty(name = "isReview", value = "是否审核", dataType = "Integer")
-    private Integer isReview;
+    @ApiModelProperty(name = "suppliesCategory", value = "设备分类", dataType = "String")
+    private String suppliesCategory;
+
+    //----------------物资------------------------------
+    /**
+     * 物资
+     */
+    @ApiModelProperty(name = "goodsId", value = "物资", dataType = "String")
+    private String goodsId;
+
+    //----------------印信------------------------------
+    /**
+     * 印信
+     */
+    @ApiModelProperty(name = "seal", value = "印信", dataType = "String")
+    private String seal;
 
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.SealRecordsDao">
+
+
+    <resultMap id="UserDTO" type="com.office.qljt.qljtoffice.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="sduId" column="sdu_id"/>
+        <association property="sduInfo" javaType="com.office.qljt.qljtoffice.dto.SduDTO" column="sdu_id"
+                     select="selectSdu"/>
+    </resultMap>
+
+    <select id="selectSdu" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
+        SELECT *
+        FROM tb_sdu
+        WHERE `id` = #{sdu_id}
+    </select>
+
+    <resultMap id="SealRecordsDTO" type="com.office.qljt.qljtoffice.dto.SealRecordsDTO">
+        <result property="userId" column="user_id"/>
+        <result property="seal" column="seal"/>
+        <association property="userInfo" select="selectUser"
+                     javaType="com.office.qljt.qljtoffice.dto.UserDTO"
+                     column="user_id"/>
+        <association property="sealInfo" select="selectSeal"
+                     javaType="com.office.qljt.qljtoffice.dto.SealDTO"
+                     column="seal"/>
+    </resultMap>
+
+
+    <select id="selectUser" resultMap="UserDTO">
+        SELECT *
+        FROM tb_user
+        WHERE `id` = #{user_id}
+    </select>
+
+    <select id="selectSeal" resultType="com.office.qljt.qljtoffice.dto.SealDTO">
+        SELECT *
+        FROM tb_seal
+        WHERE `id` = #{seal}
+    </select>
+
+    <select id="listSealRecordsDTO" resultMap="SealRecordsDTO">
+        SELECT *
+        FROM tb_seal_records
+        ORDER BY `time` DESC
+        LIMIT #{current},#{size}
+    </select>
+
+    <select id="listAllSealRecordsDTO" resultMap="SealRecordsDTO">
+        SELECT *
+        FROM tb_seal_records
+        ORDER BY `time` DESC
+    </select>
+
+
+    <select id="listSealRecordsDTOByCondition" resultMap="SealRecordsDTO">
+        SELECT *
+        FROM tb_seal_records
+        <where>
+            <if test="condition.seal != null">
+                and seal = #{condition.seal}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listSealRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SealRecordsDTO">
+        SELECT *
+        FROM tb_seal_records
+        <where>
+            <if test="condition.seal != null">
+                and seal = #{condition.seal}
+            </if>
+            <if test="condition.date != null">
+                and date = #{condition.date}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+</mapper>

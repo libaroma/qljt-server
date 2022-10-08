@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.DispatchRecordsDao">
+
+
+    <resultMap id="UserDTO" type="com.office.qljt.qljtoffice.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="sduId" column="sdu_id"/>
+        <association property="sduInfo" javaType="com.office.qljt.qljtoffice.dto.SduDTO" column="sdu_id"
+                     select="selectSdu"/>
+    </resultMap>
+
+    <select id="selectSdu" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
+        SELECT *
+        FROM tb_sdu
+        WHERE `id` = #{sdu_id}
+    </select>
+
+    <resultMap id="DispatchRecordsDTO" type="com.office.qljt.qljtoffice.dto.DispatchRecordsDTO">
+        <result property="userId" column="user_id"/>
+        <result property="method" column="method"/>
+        <association property="userInfo" select="selectUser"
+                     javaType="com.office.qljt.qljtoffice.dto.UserDTO"
+                     column="user_id"/>
+        <association property="methodInfo" select="selectDispatchMethods"
+                     javaType="com.office.qljt.qljtoffice.dto.DispatchMethodsDTO"
+                     column="method"/>
+    </resultMap>
+
+
+    <select id="selectUser" resultMap="UserDTO">
+        SELECT *
+        FROM tb_user
+        WHERE `id` = #{user_id}
+    </select>
+
+    <select id="selectDispatchMethods" resultType="com.office.qljt.qljtoffice.dto.DispatchMethodsDTO">
+        SELECT *
+        FROM tb_dispatch_methods
+        WHERE `id` = #{method}
+    </select>
+
+    <select id="listDispatchRecordsDTO" resultMap="DispatchRecordsDTO">
+        SELECT *
+        FROM tb_dispatch_records
+        ORDER BY `time` DESC
+        LIMIT #{current},#{size}
+    </select>
+
+    <select id="listAllDispatchRecordsDTO" resultMap="DispatchRecordsDTO">
+        SELECT *
+        FROM tb_dispatch_records
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listDispatchRecordsDTOByCondition" resultMap="DispatchRecordsDTO">
+        SELECT *
+        FROM tb_dispatch_records
+        <where>
+            <if test="condition.method != null">
+                and method = #{condition.method}
+            </if>
+            <if test="condition.year != null">
+                and year = #{condition.year}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+    <select id="listDispatchRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.DispatchRecordsDTO">
+        SELECT *
+        FROM tb_dispatch_records
+        <where>
+            <if test="condition.method != null">
+                and method = #{condition.method}
+            </if>
+            <if test="condition.year != null">
+                and year = #{condition.year}
+            </if>
+            <if test="condition.current != null and condition.size != null">
+                limit #{condition.current},#{condition.size}
+            </if>
+        </where>
+        ORDER BY `time` DESC
+    </select>
+
+</mapper>

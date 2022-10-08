@@ -1,7 +1,10 @@
 package com.office.qljt.qljtoffice.strategy.impl;
 
-import com.office.qljt.qljtoffice.dto.UserInfoDTO;
+import com.office.qljt.qljtoffice.dao.UserDao;
+import com.office.qljt.qljtoffice.dto.UserDTO;
+import com.office.qljt.qljtoffice.service.UserService;
 import com.office.qljt.qljtoffice.strategy.SocialLoginStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,36 +19,23 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public abstract class AbstractSocialLoginStrategyImpl implements SocialLoginStrategy {
-//    @Autowired
-//    private UserAuthDao userAuthDao;
-//    @Autowired
-//    private UserInfoDao userInfoDao;
-//    @Autowired
-//    private UserRoleDao userRoleDao;
-//    @Autowired
-//    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private UserService userService;
     @Resource
     private HttpServletRequest request;
 
     @Override
-    public UserInfoDTO login(String data) {
-        return null;
-//        // 创建登录信息
-//        UserDetailDTO userDetailDTO;
-//        // 获取第三方token信息
-//        SocialTokenDTO socialToken = getSocialToken(data);
+    public UserDTO login(String data) {
+        // 创建登录信息
+//        UserDTO userDTO;
 //        // 获取用户ip信息
 //        String ipAddress = IpUtils.getIpAddress(request);
 //        String ipSource = IpUtils.getIpSource(ipAddress);
 //        // 判断是否已注册
-//        UserAuth user = getUserAuth(socialToken);
-//        if (Objects.nonNull(user)) {
-//            // 返回数据库用户信息
-//            userDetailDTO = getUserDetail(user, ipAddress, ipSource);
-//        } else {
-//            // 获取第三方用户信息，保存到数据库返回
-//            userDetailDTO = saveUserDetail(socialToken, ipAddress, ipSource);
-//        }
+//
 //        // 判断账号是否禁用
 //        if (userDetailDTO.getIsDisable().equals(TRUE)) {
 //            throw new BizException("账号已被禁用");
@@ -55,6 +45,7 @@ public abstract class AbstractSocialLoginStrategyImpl implements SocialLoginStra
 //        SecurityContextHolder.getContext().setAuthentication(auth);
 //        // 返回用户信息
 //        return BeanCopyUtils.copyObject(userDetailDTO, UserInfoDTO.class);
+        return null;
     }
 
 //    /**

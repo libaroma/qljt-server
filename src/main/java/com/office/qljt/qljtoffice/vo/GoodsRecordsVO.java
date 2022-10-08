@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -31,7 +31,7 @@ public class GoodsRecordsVO {
 	/**
 	 * openid
 	 */
-   	@ApiModelProperty(name = "_openid",value="openid",dataType = "String")
+   	@ApiModelProperty(name = "openid",value="openid",dataType = "String")
 	private String openid;
 
 	/**
@@ -49,25 +49,11 @@ public class GoodsRecordsVO {
 	private String company;
 
 	/**
-	 * 名称
+	 * 物资id
 	 */
-   	@NotBlank(message = "名称不能为空")
-	@ApiModelProperty(name = "goods",value="名称",required = true,dataType = "String")
-	private String goods;
-
-	/**
-	 * 物资类别
-	 */
-   	@NotBlank(message = "物资类别不能为空")
-	@ApiModelProperty(name = "category",value="物资类别",required = true,dataType = "String")
-	private String category;
-
-	/**
-	 * 物资描述
-	 */
-   	@NotBlank(message = "物资描述不能为空")
-	@ApiModelProperty(name = "goods_options",value="物资描述",required = true,dataType = "String")
-	private String goodsOptions;
+   	@NotBlank(message = "物资id不能为空")
+	@ApiModelProperty(name = "goods_id",value="物资id",required = true,dataType = "String")
+	private String goodsId;
 
 	/**
 	 * 原因描述
@@ -75,13 +61,6 @@ public class GoodsRecordsVO {
    	@NotBlank(message = "原因描述不能为空")
 	@ApiModelProperty(name = "description",value="原因描述",required = true,dataType = "String")
 	private String description;
-
-	/**
-	 * 照片
-	 */
-   	@NotBlank(message = "照片不能为空")
-	@ApiModelProperty(name = "cover",value="照片",required = true,dataType = "String")
-	private String cover;
 
 	/**
 	 * 电话

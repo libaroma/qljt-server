@@ -89,4 +89,29 @@ public class CommonConst {
      */
     public static final Integer DEFAULT_CONFIG_ID = 1;
 
+    /**
+     * 默认用户名：交院学生
+     */
+    public static final String USER_NICK_NAME = "交院学生";
+    /**
+     * 默认avatar：avatar
+     */
+    public static final String USER_AVATAR = "https://www.qltrans.sdu.edu.cn/images/favicon.png";
+    /**
+     * 默认city：济南
+     */
+    public static final String USER_CITY = "济南";
+    /**
+     * 默认province：山东
+     */
+    public static final String USER_PROVINCE = "山东";
+    /**
+     * 默认country：中国
+     */
+    public static final String USER_COUNTRY = "中国";
+    /**
+     * 默认language：语言
+     */
+    public static final String USER_LANGUAGE = "zh-cn";
+
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.qljt.qljtoffice.dao.DispatchMethodsDao">
+
+    <resultMap id="DispatchMethodsDTO" type="com.office.qljt.qljtoffice.dto.DispatchMethodsDTO">
+        <result property="seal" column="seal"/>
+        <association property="sealInfo" select="selectSeal" javaType="com.office.qljt.qljtoffice.dto.SealDTO"
+                     column="seal"/>
+    </resultMap>
+
+
+    <select id="selectSeal" resultType="com.office.qljt.qljtoffice.dto.SealDTO">
+        SELECT *
+        FROM tb_seal
+        WHERE `id` = #{seal}
+    </select>
+
+    <select id="listDispatchMethodsDTO" resultMap="DispatchMethodsDTO">
+        SELECT *
+        FROM tb_dispatch_methods
+        WHERE `status` = 1
+        ORDER BY `time` ASC
+    </select>
+
+    <select id="getDispatchMethodsDTO" resultMap="DispatchMethodsDTO">
+        SELECT *
+        FROM tb_dispatch_methods
+        WHERE `status` = 1
+          AND `id` = #{id}
+    </select>
+
+
+</mapper>

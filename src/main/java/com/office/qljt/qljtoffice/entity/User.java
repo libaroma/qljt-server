@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author  续加仪
- * @date 2022-10-05
+ * @date 2022-10-06
  */
 
 @Data
@@ -35,11 +35,6 @@ public class User {
 	 * 学号/工号
 	 */
 	private String sduId;
-
-	/**
-	 * 物资类别
-	 */
-	private String category;
 
 	/**
 	 * 昵称
