@@ -1,10 +1,12 @@
 package com.office.qljt.qljtoffice.config;
 
-import com.office.qljt.qljtoffice.handler.*;
+import com.office.qljt.qljtoffice.handler.AuthenticationFailHandlerImpl;
+import com.office.qljt.qljtoffice.handler.AuthenticationProviderImpl;
+import com.office.qljt.qljtoffice.handler.AuthenticationSuccessHandlerImpl;
+import com.office.qljt.qljtoffice.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,12 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
-
-    @Bean
-    public AccessDecisionManager accessDecisionManager() {
-        return new AccessDecisionManagerImpl();
-    }
-
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
@@ -47,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
-
+    
     /**
      * 密码加密
      *

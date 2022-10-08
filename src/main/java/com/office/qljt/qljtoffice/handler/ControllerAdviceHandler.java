@@ -54,7 +54,8 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(value = Exception.class)
     public Result<?> errorHandler(Exception e) {
         e.printStackTrace();
-        return Result.fail(SYSTEM_ERROR.getCode(), SYSTEM_ERROR.getDesc());
+//        return Result.fail(SYSTEM_ERROR.getCode(), SYSTEM_ERROR.getDesc());
+        return Result.fail(SYSTEM_ERROR.getCode(), e.getMessage());
     }
 
 }

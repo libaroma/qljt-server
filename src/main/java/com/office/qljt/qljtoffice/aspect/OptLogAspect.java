@@ -3,6 +3,7 @@ package com.office.qljt.qljtoffice.aspect;
 import com.alibaba.fastjson.JSON;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dao.OperationLogDao;
+import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.OperationLog;
 import com.office.qljt.qljtoffice.utils.IpUtils;
 import com.office.qljt.qljtoffice.utils.UserUtils;
@@ -39,7 +40,8 @@ public class OptLogAspect {
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
      */
     @Pointcut("@annotation(com.office.qljt.qljtoffice.annotation.OptLog)")
-    public void optLogPointCut() {}
+    public void optLogPointCut() {
+    }
 
 
     /**
@@ -54,7 +56,7 @@ public class OptLogAspect {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         // 从获取RequestAttributes中获取HttpServletRequest的信息
         HttpServletRequest request = (HttpServletRequest) Objects.requireNonNull(requestAttributes).resolveReference(RequestAttributes.REFERENCE_REQUEST);
-        OperationLog operationLog = new OperationLog();
+
         // 从切面织入点处通过反射机制获取织入点处的方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         // 获取切入点所在的方法
@@ -63,33 +65,43 @@ public class OptLogAspect {
         Api api = (Api) signature.getDeclaringType().getAnnotation(Api.class);
         ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
         OptLog optLog = method.getAnnotation(OptLog.class);
-        // 操作模块
-        operationLog.setOptModule(api.tags()[0]);
-        // 操作类型
-        operationLog.setOptType(optLog.optType());
-        // 操作描述
-        operationLog.setOptDesc(apiOperation.value());
+
         // 获取请求的类名
         String className = joinPoint.getTarget().getClass().getName();
         // 获取请求的方法名
         String methodName = method.getName();
         methodName = className + "." + methodName;
-        // 请求方式
-        operationLog.setRequestMethod(Objects.requireNonNull(request).getMethod());
-        // 请求方法
-        operationLog.setOptMethod(methodName);
-        // 请求参数
-        operationLog.setRequestParam(JSON.toJSONString(joinPoint.getArgs()));
-        // 返回结果
-        operationLog.setResponseData(JSON.toJSONString(keys));
-        // 请求用户ID
-        operationLog.setUserId(UserUtils.getLoginUser().getId());
         // 请求IP
         String ipAddress = IpUtils.getIpAddress(request);
-        operationLog.setIpAddress(ipAddress);
-        operationLog.setIpSource(IpUtils.getIpSource(ipAddress));
-        // 请求URL
-        operationLog.setOptUrl(request.getRequestURI());
+        //获取登录用户
+        UserDTO userDTO = UserUtils.getLoginUser();
+        //设置信息
+        OperationLog operationLog = OperationLog.builder()
+                // 操作模块
+                .optModule(api.tags()[0])
+                // 操作类型
+                .optType(optLog.optType())
+                // 操作描述
+                .optDesc(apiOperation.value())
+                // 请求方式
+                .requestMethod(Objects.requireNonNull(request).getMethod())
+                // 请求方法
+                .optMethod(methodName)
+                // 请求参数
+                .requestParam(JSON.toJSONString(joinPoint.getArgs()))
+                // 返回结果
+                .responseData(JSON.toJSONString(keys))
+                // 请求用户ID
+                .userId(userDTO.getId())
+                // 请求用户openid
+                .openid(userDTO.getOpenid())
+                // 请求IP
+                .ipAddress(ipAddress)
+                .ipSource(IpUtils.getIpSource(ipAddress))
+                // 请求URL
+                .optUrl(request.getRequestURI())
+                .build();
+        //保存日志
         operationLogDao.insert(operationLog);
     }
 

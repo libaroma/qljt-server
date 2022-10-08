@@ -53,6 +53,7 @@ public class ApiCheckTooFrequentCommitInterceptorImpl implements HandlerIntercep
                 } else {
                     //有记录：拦截
                     throw new BizException("请求过于频繁，请稍后重试！");
+
                 }
             }
         }

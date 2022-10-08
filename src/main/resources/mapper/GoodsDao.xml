@@ -6,7 +6,6 @@
         SELECT *
         FROM tb_goods
         ORDER BY `time` ASC
-        LIMIT #{current}, #{size}
     </select>
 
     <select id="getGoodsDTO" resultType="com.office.qljt.qljtoffice.dto.GoodsDTO">

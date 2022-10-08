@@ -1,6 +1,5 @@
 package com.office.qljt.qljtoffice.handler;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.office.qljt.qljtoffice.dao.SduDao;
 import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.SduDTO;
@@ -47,9 +46,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String uid = request.getHeader("u");
-        if (StringUtils.isBlank(uid)) {
-            throw new BadCredentialsException("用户uid不能为空！");
-        }
+//        if (StringUtils.isBlank(uid)) {
+//            throw new BadCredentialsException("用户uid不能为空！");
+//        }
         String sduId = authentication.getName();
         String sduName = (String) authentication.getCredentials();
         // 查询账号是否存在
@@ -96,7 +95,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
                     .sduId(sduDTO.getId())
                     .status(1L)
                     .role(0L)
-                    .id(uid)
+                    .id(uid==null?idWorker.nextId()+"":uid)
                     .build();
             userService.saveOrUpdate(user);
             userDTO = BeanCopyUtils.copyObject(user, UserDTO.class);
