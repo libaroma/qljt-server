@@ -44,14 +44,14 @@
     <select id="listSuppliesRecordsDTO" resultMap="SuppliesRecordsDTO">
         SELECT *
         FROM tb_supplies_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllSuppliesRecordsDTO" resultMap="SuppliesRecordsDTO">
         SELECT *
         FROM tb_supplies_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
 
@@ -62,14 +62,14 @@
             <if test="condition.suppliesCategory != null">
                 and supplies_category = #{condition.suppliesCategory}
             </if>
-            <if test="condition.date != null">
-                and date = #{condition.date}
+            <if test="condition.isReturn != null">
+                and is_return = #{condition.isReturn}
             </if>
             <if test="condition.current != null and condition.size != null">
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
     <select id="listSuppliesRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SuppliesRecordsDTO">
@@ -86,8 +86,14 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
+
+    <select id="getSuppliesRecordsById" resultMap="SuppliesRecordsDTO">
+        SELECT *
+        FROM tb_supplies_records
+        WHERE `id` = #{id}
+    </select>
 
 </mapper>

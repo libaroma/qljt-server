@@ -2,6 +2,7 @@ package com.office.qljt.qljtoffice.controller;
 
 import com.office.qljt.qljtoffice.annotation.CheckTooFrequentCommit;
 import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
+import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.DispatchRecordsDTO;
 import com.office.qljt.qljtoffice.service.DispatchRecordsService;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
 
 /**
@@ -71,6 +73,7 @@ public class DispatchRecordsController {
      */
     @CheckTooFrequentCommit
     @CheckUserAuth(role = ADMIN)
+    @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新发文登记")
     @PostMapping("/sou")
     public Result<?> saveOrUpdateDispatchRecord(@Valid @RequestBody DispatchRecordsVO dispatchRecordVO) {

@@ -9,10 +9,8 @@ import com.office.qljt.qljtoffice.dto.DispatchRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.DispatchRecords;
 import com.office.qljt.qljtoffice.service.DispatchRecordsService;
-import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
-import com.office.qljt.qljtoffice.utils.IdWorker;
-import com.office.qljt.qljtoffice.utils.PageUtils;
-import com.office.qljt.qljtoffice.utils.TextUtils;
+import com.office.qljt.qljtoffice.service.EmailService;
+import com.office.qljt.qljtoffice.utils.*;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.DispatchRecordsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
@@ -42,6 +40,8 @@ public class DispatchRecordsServiceImpl extends ServiceImpl<DispatchRecordsDao, 
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public PageResult<DispatchRecordsDTO> listDispatchRecordsDTO() {
@@ -65,8 +65,9 @@ public class DispatchRecordsServiceImpl extends ServiceImpl<DispatchRecordsDao, 
         DispatchMethodsDTO dispatchMethodsDTO = dispatchMethodsDao.getDispatchMethodsDTO(dispatchRecords.getMethod());
         //判断Method是否存在
         if (dispatchMethodsDTO == null) return Result.fail("发文方式不存在");
-        UserDTO userDTO = userDao.getUserDTOByUserId(dispatchRecords.getUserId());
-        if (userDTO == null) return Result.fail("用户不存在");
+        UserDTO loginUser = UserUtils.getLoginUser();
+        if (loginUser == null || !loginUser.getId().equals(dispatchRecords.getUserId()))
+            return Result.fail("登录用户id与申请用户id不一致，无权限");
         //确定中本年度该Method下的发文sequence
         //创建Condition
         ConditionVO condition = ConditionVO.builder().method(dispatchRecords.getMethod()).year(dispatchRecords.getYear()).build();
@@ -78,6 +79,8 @@ public class DispatchRecordsServiceImpl extends ServiceImpl<DispatchRecordsDao, 
         if (TextUtils.isEmpty(dispatchRecords.getId())) dispatchRecords.setId(idWorker.nextId() + "");
         //保存
         this.saveOrUpdate(dispatchRecords);
+        //邮箱通知
+        emailService.sendEmail(dispatchRecords,dispatchMethodsDTO,loginUser);
         //返回结果
         return Result.ok(dispatchRecords);
     }

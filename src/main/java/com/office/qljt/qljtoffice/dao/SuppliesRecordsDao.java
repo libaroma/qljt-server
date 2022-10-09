@@ -41,4 +41,11 @@ public interface SuppliesRecordsDao extends BaseMapper<SuppliesRecords> {
      * @return 条件获取设备借用列表
      */
     List<SuppliesRecordsDTO> listSuppliesRecordsDTOByCondition(@Param("condition") ConditionVO condition);
+
+    /**
+     * id查询
+     * @param id id
+     * @return 查询
+     */
+    SuppliesRecordsDTO getSuppliesRecordsById(@Param("id") String id);
 }

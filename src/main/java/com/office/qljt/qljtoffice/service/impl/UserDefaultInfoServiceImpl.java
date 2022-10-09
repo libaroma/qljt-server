@@ -7,10 +7,7 @@ import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.dto.UserDefaultInfoDTO;
 import com.office.qljt.qljtoffice.entity.UserDefaultInfo;
 import com.office.qljt.qljtoffice.service.UserDefaultInfoService;
-import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
-import com.office.qljt.qljtoffice.utils.IdWorker;
-import com.office.qljt.qljtoffice.utils.PageUtils;
-import com.office.qljt.qljtoffice.utils.TextUtils;
+import com.office.qljt.qljtoffice.utils.*;
 import com.office.qljt.qljtoffice.vo.DeleteVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -41,8 +38,10 @@ public class UserDefaultInfoServiceImpl extends ServiceImpl<UserDefaultInfoDao, 
     @Override
     public Result<?> saveOrUpdateUserDefaultInfo(UserDefaultInfoVO userDefaultInfoVO) {
         UserDefaultInfo userDefaultInfo = BeanCopyUtils.copyObject(userDefaultInfoVO, UserDefaultInfo.class);
-        UserDTO userDTO = userDao.getUserDTOByUserId(userDefaultInfo.getUserId());
-        if (userDTO == null) return Result.fail("用户不存在，添加失败");
+        //获取登录用户
+        UserDTO loginUser = UserUtils.getLoginUser();
+        if (loginUser == null || !loginUser.getId().equals(userDefaultInfo.getUserId()))
+            return Result.fail("无权限！用户id与登录用户不一致");
         if (TextUtils.isEmpty(userDefaultInfo.getId())) userDefaultInfo.setId(idWorker.nextId() + "");
         if (userDefaultInfo.getStatus() == null) userDefaultInfo.setStatus(1L);
         this.saveOrUpdate(userDefaultInfo);

@@ -37,6 +37,19 @@ public class EmailController {
      *
      * @return 查看邮箱列表
      */
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = ADMIN)
+    @ApiOperation(value = "发送邮件")
+    @GetMapping("/send")
+    public Result<?> sendEmail(@RequestParam("email") String email, @RequestParam("subject") String subject, @RequestParam("content") String content) {
+        return emailService.sendEmail(email, subject, content);
+    }
+
+    /**
+     * 查看邮箱列表
+     *
+     * @return 查看邮箱列表
+     */
     @CheckUserAuth(role = ADMIN)
     @ApiOperation(value = "查看邮箱列表")
     @GetMapping("/list")
@@ -56,8 +69,7 @@ public class EmailController {
     @ApiOperation(value = "保存邮箱")
     @PostMapping("/sou")
     public Result<?> saveOrUpdateEmail(@Valid @RequestBody EmailVO emailVO) {
-        emailService.savaOrUpdateEmail(emailVO);
-        return Result.ok();
+        return emailService.savaOrUpdateEmail(emailVO);
     }
 
     /**

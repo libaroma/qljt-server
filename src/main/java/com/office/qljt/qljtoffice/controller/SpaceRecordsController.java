@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.REMOVE;
 import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
@@ -75,10 +76,25 @@ public class SpaceRecordsController {
      * @return 保存或更新会场预约
      */
     @CheckTooFrequentCommit
+    @CheckUserAuth(role = NORMAL)
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新会场预约")
     @PostMapping("/sou")
-    public Result<?> saveOrUpdateSpaceRecord(@Valid @RequestBody SpaceRecordsVO spaceRecordVO) {
+    public Result<?> saveOrUpdateSpaceRecords(@Valid @RequestBody SpaceRecordsVO spaceRecordVO) {
         return spaceRecordService.saveOrUpdateSpaceRecords(spaceRecordVO);
+    }
+    /**
+     * 取消会场预约
+     *
+     * @param id 预约id
+     * @return 取消会场预约
+     */
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = NORMAL)
+    @OptLog(optType = REMOVE)
+    @ApiOperation(value = "取消会场预约")
+    @PostMapping("/cancel/{id}")
+    public Result<?> cancelSpaceRecords(@PathVariable("id") String id) {
+        return spaceRecordService.cancelSpaceRecords(id);
     }
 }

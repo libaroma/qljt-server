@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.office.qljt.qljtoffice.constant.OptTypeConst.REMOVE;
-import static com.office.qljt.qljtoffice.constant.RoleTypeConst.*;
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
 
 /**
  * @author 续加仪
@@ -29,7 +30,7 @@ import static com.office.qljt.qljtoffice.constant.RoleTypeConst.*;
 public class SuppliesRecordsController {
 
     @Autowired
-    private SuppliesRecordsService suppliesRecordService;
+    private SuppliesRecordsService suppliesRecordsService;
 
     /**
      * 查看设备借用历史
@@ -40,7 +41,7 @@ public class SuppliesRecordsController {
     @ApiOperation(value = "查看设备借用历史")
     @GetMapping("/list")
     public Result<PageResult<SuppliesRecordsDTO>> listSuppliesRecordsDTO() {
-        return Result.ok(suppliesRecordService.listSuppliesRecordsDTO());
+        return Result.ok(suppliesRecordsService.listSuppliesRecordsDTO());
     }
 
     /**
@@ -52,7 +53,7 @@ public class SuppliesRecordsController {
     @ApiOperation(value = "查看全部设备借用历史")
     @GetMapping("/all")
     public Result<PageResult<SuppliesRecordsDTO>> listAllSuppliesRecordsDTO() {
-        return Result.ok(suppliesRecordService.listAllSuppliesRecordsDTO());
+        return Result.ok(suppliesRecordsService.listAllSuppliesRecordsDTO());
     }
 
     /**
@@ -64,7 +65,7 @@ public class SuppliesRecordsController {
     @ApiOperation(value = "条件查询设备借用历史")
     @GetMapping("/condition")
     public Result<PageResult<SuppliesRecordsDTO>> listSpaceRecordsDTOByCondition(ConditionVO conditionVO) {
-        return Result.ok(suppliesRecordService.listSuppliesRecordsDTOByCondition(conditionVO));
+        return Result.ok(suppliesRecordsService.listSuppliesRecordsDTOByCondition(conditionVO));
     }
 
     /**
@@ -75,10 +76,38 @@ public class SuppliesRecordsController {
      */
     @CheckTooFrequentCommit
     @CheckUserAuth(role = NORMAL)
-    @OptLog(optType = REMOVE)
+    @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新设备借用")
     @PostMapping("/sou")
-    public Result<?> saveOrUpdateSuppliesRecord(@Valid @RequestBody SuppliesRecordsVO suppliesRecordVO) {
-        return suppliesRecordService.saveOrUpdateSuppliesRecord(suppliesRecordVO);
+    public Result<?> saveOrUpdateSuppliesRecords(@Valid @RequestBody SuppliesRecordsVO suppliesRecordVO) {
+        return suppliesRecordsService.saveOrUpdateSuppliesRecords(suppliesRecordVO);
+    }
+    /**
+     * 归还设备借用
+     *
+     * @param id 设备借用信息id
+     * @return 归还设备借用
+     */
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = NORMAL)
+    @OptLog(optType = SAVE_OR_UPDATE)
+    @ApiOperation(value = "归还设备借用")
+    @PostMapping("/return/{id}")
+    public Result<?> returnSuppliesRecords(@PathVariable("id")String id) {
+        return suppliesRecordsService.returnSuppliesRecords(id);
+    }
+    /**
+     * 归还设备借用审核
+     *
+     * @param id 设备借用信息id
+     * @return 归还设备借用审核
+     */
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = ADMIN)
+    @OptLog(optType = SAVE_OR_UPDATE)
+    @ApiOperation(value = "审核归还申请")
+    @PostMapping("/examine/{id}")
+    public Result<?> examineSuppliesRecords(@PathVariable("id")String id) {
+        return suppliesRecordsService.examineSuppliesRecords(id);
     }
 }

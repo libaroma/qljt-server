@@ -1,14 +1,20 @@
 package com.office.qljt.qljtoffice.consumer;
 
 import com.alibaba.fastjson.JSON;
-import com.office.qljt.qljtoffice.dto.SystemEmailDTO;
+import com.office.qljt.qljtoffice.dto.EmailAttachmentDTO;
+import com.office.qljt.qljtoffice.dto.EmailNoticeInfoDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.util.List;
 
 import static com.office.qljt.qljtoffice.constant.MQPrefixConst.EMAIL_QUEUE;
 
@@ -34,13 +40,24 @@ public class EmailConsumer {
 
     @RabbitHandler
     public void process(byte[] data) {
-        SystemEmailDTO emailDTO = JSON.parseObject(new String(data), SystemEmailDTO.class);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(email);
-        message.setTo(emailDTO.getEmail());
-        message.setSubject(emailDTO.getSubject());
-        message.setText(emailDTO.getContent());
-        javaMailSender.send(message);
+        EmailNoticeInfoDTO emailNoticeInfoDTO = JSON.parseObject(new String(data), EmailNoticeInfoDTO.class);
+        //简单邮件
+        //SimpleMailMessage message = new SimpleMailMessage();
+        //复杂邮件
+        MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage,true);
+            mimeMessageHelper.setFrom(email);
+            List<EmailAttachmentDTO> attachmentList = emailNoticeInfoDTO.getAttachmentList();
+            mimeMessageHelper.setTo(emailNoticeInfoDTO.getEmail());
+            mimeMessageHelper.setSubject(emailNoticeInfoDTO.getSubject());
+            mimeMessageHelper.setText(emailNoticeInfoDTO.getContent(),true);
+            if (attachmentList != null) for (EmailAttachmentDTO attachment : attachmentList)
+                mimeMessageHelper.addInline(attachment.getId(), new File(attachment.getUrl()));
+            javaMailSender.send(mimeMailMessage);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
+

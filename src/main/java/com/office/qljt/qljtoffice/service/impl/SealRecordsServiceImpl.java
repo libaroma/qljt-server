@@ -8,11 +8,9 @@ import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.dto.SealRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.SealRecords;
+import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.service.SealRecordsService;
-import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
-import com.office.qljt.qljtoffice.utils.IdWorker;
-import com.office.qljt.qljtoffice.utils.PageUtils;
-import com.office.qljt.qljtoffice.utils.TextUtils;
+import com.office.qljt.qljtoffice.utils.*;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -32,14 +30,18 @@ public class SealRecordsServiceImpl extends ServiceImpl<SealRecordsDao, SealReco
 
     @Autowired
     private IdWorker idWorker;
+
     @Autowired
     private SealDao sealDao;
+
     @Autowired
     private SealRecordsDao sealRecordsDao;
 
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public PageResult<SealRecordsDTO> listSealRecordsDTO() {
@@ -61,10 +63,13 @@ public class SealRecordsServiceImpl extends ServiceImpl<SealRecordsDao, SealReco
         SealRecords sealRecords = BeanCopyUtils.copyObject(sealRecordVO, SealRecords.class);
         SealDTO sealDTO = sealDao.getSealDTO(sealRecords.getSeal());
         if (sealDTO == null) return Result.fail("公章不存在");
-        UserDTO userDTO = userDao.getUserDTOByUserId(sealRecords.getUserId());
-        if (userDTO == null) return Result.fail("用户不存在");
+        UserDTO loginUser = UserUtils.getLoginUser();
+        if (loginUser == null || !loginUser.getId().equals(sealRecords.getUserId()))
+            return Result.fail("登录用户id与申请用户id不一致，无权限");
         if (TextUtils.isEmpty(sealRecords.getId())) sealRecords.setId(idWorker.nextId() + "");
         this.saveOrUpdate(sealRecords);
+        //邮箱通知
+        emailService.sendEmail(sealRecords,sealDTO, loginUser);
         return Result.ok(sealRecords);
     }
 }

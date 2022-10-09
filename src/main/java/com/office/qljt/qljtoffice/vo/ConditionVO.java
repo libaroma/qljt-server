@@ -78,7 +78,12 @@ public class ConditionVO {
      * 设备分类
      */
     @ApiModelProperty(name = "suppliesCategory", value = "设备分类", dataType = "String")
-    private String suppliesCategory;
+    private String suppliesCategory;/**
+
+     * 设备归还
+     */
+    @ApiModelProperty(name = "isReturn", value = "设备归还", dataType = "Integer")
+    private Long isReturn;
 
     //----------------物资------------------------------
     /**
@@ -89,9 +94,9 @@ public class ConditionVO {
 
     //----------------印信------------------------------
     /**
-     * 印信
+     * 公章
      */
-    @ApiModelProperty(name = "seal", value = "印信", dataType = "String")
+    @ApiModelProperty(name = "seal", value = "公章", dataType = "String")
     private String seal;
 
 }

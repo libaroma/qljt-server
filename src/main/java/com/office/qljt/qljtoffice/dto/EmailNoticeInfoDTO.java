@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * 邮件
  *
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SystemEmailDTO {
+public class EmailNoticeInfoDTO {
 
     /**
      * 邮箱号
@@ -31,5 +33,11 @@ public class SystemEmailDTO {
      * 内容
      */
     private String content;
+
+    /**
+     * 附件
+     */
+    private List<EmailAttachmentDTO> attachmentList;
+
 
 }

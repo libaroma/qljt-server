@@ -42,4 +42,11 @@ public interface SpaceRecordsService extends IService<SpaceRecords> {
      * @return 保存/更新会场预约记录
      */
     Result<?> saveOrUpdateSpaceRecords(SpaceRecordsVO spaceRecordsVO);
+
+    /**
+     * 取消会场预约
+     * @param id 预约id
+     * @return 取消结果
+     */
+    Result<?> cancelSpaceRecords(String id);
 }

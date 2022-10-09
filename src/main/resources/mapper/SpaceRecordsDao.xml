@@ -46,14 +46,14 @@
     <select id="listSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
         SELECT *
         FROM tb_space_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
         SELECT *
         FROM tb_space_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
     <select id="listSpaceRecordsDTOByCondition" resultMap="SpaceRecordsDTO">
@@ -70,7 +70,7 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
     <select id="listSpaceRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SpaceRecordsDTO">
@@ -87,7 +87,12 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
+    <select id="getSpaceRecordsById" resultMap="SpaceRecordsDTO">
+        SELECT *
+        FROM tb_space_records
+        WHERE `id` = #{id}
+    </select>
 </mapper>

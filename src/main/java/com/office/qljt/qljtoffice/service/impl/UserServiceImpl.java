@@ -48,7 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public Result<?> saveOrUpdateUser(UserVO userVO) {
         User user = BeanCopyUtils.copyObject(userVO, User.class);
         SduDTO sduDTO = sduDao.getSduDTO(user.getSduId());
-        if (sduDTO == null) return Result.fail("查无此人，登陆失败");
+        if (sduDTO == null) return Result.fail("查无此人，添加失败");
         if (TextUtils.isEmpty(user.getId())) user.setId(idWorker.nextId() + "");
         if (user.getStatus() == null) user.setStatus(1L);
         this.saveOrUpdate(user);

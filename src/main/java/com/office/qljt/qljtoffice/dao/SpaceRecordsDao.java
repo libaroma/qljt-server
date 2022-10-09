@@ -48,4 +48,12 @@ public interface SpaceRecordsDao extends BaseMapper<SpaceRecords> {
      * @return 条件查询
      */
     List<SpaceRecordsDTO> listSpaceRecordsDTOByConditionBrief(@Param("condition") ConditionVO condition);
+
+    /**
+     * 根据id查询记录
+     *
+     * @param id id
+     * @return 查询记录
+     */
+    SpaceRecordsDTO getSpaceRecordsById(@Param("id") String id);
 }

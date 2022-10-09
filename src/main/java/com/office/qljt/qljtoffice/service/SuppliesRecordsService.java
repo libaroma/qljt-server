@@ -40,5 +40,19 @@ public interface SuppliesRecordsService extends IService<SuppliesRecords> {
      * @param suppliesRecordsVO 设备
      * @return 保存/更新
      */
-    Result<?> saveOrUpdateSuppliesRecord(SuppliesRecordsVO suppliesRecordsVO);
+    Result<?> saveOrUpdateSuppliesRecords(SuppliesRecordsVO suppliesRecordsVO);
+
+    /**
+     * 归还
+     * @param id id
+     * @return 归还
+     */
+    Result<?> returnSuppliesRecords(String id);
+
+    /**
+     * 审核
+     * @param id id
+     * @return 归还
+     */
+    Result<?> examineSuppliesRecords(String id);
 }

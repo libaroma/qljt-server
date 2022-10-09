@@ -42,14 +42,14 @@
     <select id="listGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
         SELECT *
         FROM tb_goods_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
         SELECT *
         FROM tb_goods_records
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
     <select id="listGoodsRecordsDTOByCondition" resultMap="GoodsRecordsDTO">
@@ -66,7 +66,7 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
     <select id="listGoodsRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.GoodsRecordsDTO">
@@ -83,7 +83,7 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` DESC
+        ORDER BY `time` ASC
     </select>
 
 </mapper>
