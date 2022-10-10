@@ -26,10 +26,6 @@ public class OperationLog {
 	@TableId(value = "id")
 	private Long id;
 
-	/**
-	 * openid
-	 */
-	private String openid;
 
 	/**
 	 * 操作用户id

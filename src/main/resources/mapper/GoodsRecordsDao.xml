@@ -42,20 +42,24 @@
     <select id="listGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
         SELECT *
         FROM tb_goods_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
         SELECT *
         FROM tb_goods_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
     </select>
 
     <select id="listGoodsRecordsDTOByCondition" resultMap="GoodsRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_goods_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.goodsId != null">
                 and goods = #{condition.goodsId}
             </if>
@@ -66,13 +70,20 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC ) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
     <select id="listGoodsRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.GoodsRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_goods_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.goodsId != null">
                 and goods = #{condition.goodsId}
             </if>
@@ -83,7 +94,10 @@
                 limit #{condition.current},#{condition.size}
             </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC ) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
 </mapper>

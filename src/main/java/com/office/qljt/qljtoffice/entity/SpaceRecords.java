@@ -27,11 +27,6 @@ public class SpaceRecords {
 	private String id;
 
 	/**
-	 * openid
-	 */
-	private String openid;
-
-	/**
 	 * 用户id
 	 */
 	private String userId;

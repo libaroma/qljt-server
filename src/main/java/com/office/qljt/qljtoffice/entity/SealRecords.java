@@ -26,10 +26,6 @@ public class SealRecords {
 	@TableId(value = "id")
 	private String id;
 
-	/**
-	 * openid
-	 */
-	private String openid;
 
 	/**
 	 * 用户id

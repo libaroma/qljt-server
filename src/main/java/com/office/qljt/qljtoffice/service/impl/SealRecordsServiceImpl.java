@@ -3,14 +3,17 @@ package com.office.qljt.qljtoffice.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.SealDao;
 import com.office.qljt.qljtoffice.dao.SealRecordsDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.dto.SealRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.SealRecords;
 import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.service.SealRecordsService;
-import com.office.qljt.qljtoffice.utils.*;
+import com.office.qljt.qljtoffice.service.UserService;
+import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
+import com.office.qljt.qljtoffice.utils.IdWorker;
+import com.office.qljt.qljtoffice.utils.PageUtils;
+import com.office.qljt.qljtoffice.utils.TextUtils;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -38,7 +41,7 @@ public class SealRecordsServiceImpl extends ServiceImpl<SealRecordsDao, SealReco
     private SealRecordsDao sealRecordsDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -63,7 +66,7 @@ public class SealRecordsServiceImpl extends ServiceImpl<SealRecordsDao, SealReco
         SealRecords sealRecords = BeanCopyUtils.copyObject(sealRecordVO, SealRecords.class);
         SealDTO sealDTO = sealDao.getSealDTO(sealRecords.getSeal());
         if (sealDTO == null) return Result.fail("公章不存在");
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || !loginUser.getId().equals(sealRecords.getUserId()))
             return Result.fail("登录用户id与申请用户id不一致，无权限");
         if (TextUtils.isEmpty(sealRecords.getId())) sealRecords.setId(idWorker.nextId() + "");

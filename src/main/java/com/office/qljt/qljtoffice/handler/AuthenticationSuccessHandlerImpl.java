@@ -1,10 +1,9 @@
 package com.office.qljt.qljtoffice.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.UserDTO;
+import com.office.qljt.qljtoffice.service.UserService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
-import com.office.qljt.qljtoffice.utils.UserUtils;
 import com.office.qljt.qljtoffice.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,13 +25,14 @@ import static com.office.qljt.qljtoffice.constant.CommonConst.APPLICATION_JSON;
  */
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
+
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         // 返回登录信息
-        UserDTO userDTO = BeanCopyUtils.copyObject(UserUtils.getLoginUser(), UserDTO.class);
+        UserDTO userDTO = BeanCopyUtils.copyObject(userService.getLoginUser(), UserDTO.class);
         httpServletResponse.setContentType(APPLICATION_JSON);
         httpServletResponse.getWriter().write(JSON.toJSONString(Result.ok(userDTO)));
 //        // 更新用户ip，最近登录时间

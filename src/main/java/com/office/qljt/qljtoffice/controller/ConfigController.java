@@ -17,7 +17,6 @@ import javax.validation.Valid;
 
 import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
-import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
 
 /**
  * @author 续加仪
@@ -37,7 +36,7 @@ public class ConfigController {
      *
      * @return 查看配置列表
      */
-    @CheckUserAuth(role = NORMAL)
+//    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "查看配置列表")
     @GetMapping("/list")
     public Result<PageResult<ConfigDTO>> listConfigsDTO() {
@@ -49,7 +48,7 @@ public class ConfigController {
      *
      * @return 获取配置
      */
-    @CheckUserAuth(role = NORMAL)
+//    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "获取配置")
     @GetMapping("/get/{configId}")
     public Result<ConfigDTO> getConfigDTOByConfigId(@PathVariable("configId") String configId) {

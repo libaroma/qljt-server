@@ -60,7 +60,7 @@ public class SealRecordsController {
      *
      * @return 条件查询印信申请信息
      */
-    @CheckUserAuth(role = ADMIN)
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "条件查询印信申请信息")
     @GetMapping("/condition")
     public Result<PageResult<SealRecordsDTO>> listSealRecordsDTOByCondition(ConditionVO conditionVO) {

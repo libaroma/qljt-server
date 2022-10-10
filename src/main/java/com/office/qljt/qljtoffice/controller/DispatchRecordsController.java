@@ -18,6 +18,7 @@ import javax.validation.Valid;
 
 import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
 
 /**
  * @author 续加仪
@@ -59,7 +60,7 @@ public class DispatchRecordsController {
      *
      * @return 条件查询发文登记历史
      */
-    @CheckUserAuth(role = ADMIN)
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "条件查询发文登记历史")
     @GetMapping("/condition")
     public Result<PageResult<DispatchRecordsDTO>> listAllSpaceRecordsDTOByCondition(ConditionVO conditionVO) {

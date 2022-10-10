@@ -23,7 +23,6 @@ public class DispatchRecordsDTO {
      */
     private String id;
 
-    private String openid;
 
     /**
      * 用户id
@@ -51,6 +50,10 @@ public class DispatchRecordsDTO {
      */
     private String title;
 
+    /**
+     * 签发领导
+     */
+    private String confirmUser;
     /**
      * 年份
      */

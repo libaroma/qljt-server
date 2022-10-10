@@ -43,48 +43,56 @@
     <select id="listDispatchRecordsDTO" resultMap="DispatchRecordsDTO">
         SELECT *
         FROM tb_dispatch_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllDispatchRecordsDTO" resultMap="DispatchRecordsDTO">
         SELECT *
         FROM tb_dispatch_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
     </select>
 
     <select id="listDispatchRecordsDTOByCondition" resultMap="DispatchRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_dispatch_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.method != null">
                 and method = #{condition.method}
             </if>
             <if test="condition.year != null">
                 and year = #{condition.year}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
     <select id="listDispatchRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.DispatchRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_dispatch_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.method != null">
                 and method = #{condition.method}
             </if>
             <if test="condition.year != null">
                 and year = #{condition.year}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
 </mapper>

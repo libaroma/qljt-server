@@ -34,6 +34,12 @@ public class ConditionVO {
     private Long size;
 
     /**
+     * 用户Id
+     */
+    @ApiModelProperty(name = "userId", value = "用户Id", dataType = "String")
+    private String userId;
+
+    /**
      * 搜索内容
      */
     @ApiModelProperty(name = "keywords", value = "搜索内容", dataType = "String")
@@ -46,6 +52,13 @@ public class ConditionVO {
     private Long status;
 
 
+    //----------------用户------------------------------
+
+    /**
+     * 用户 格式为 2022-10-7
+     */
+    @ApiModelProperty(name = "role", value = "用户", dataType = "Integer")
+    private Long role;
     //----------------会场------------------------------
 
     /**

@@ -1,9 +1,8 @@
 package com.office.qljt.qljtoffice.dto;
 
-import lombok.Data;
-import lombok.Builder;
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -24,10 +23,6 @@ public class OperationLogDTO {
 	 */
 	private Long id;
 
-	/**
-	 * openid
-	 */
-	private String openid;
 
 	/**
 	 * 操作用户id

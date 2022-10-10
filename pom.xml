@@ -136,6 +136,12 @@
             <version>1.10</version>
         </dependency>
 
+        <!--bouncycastle-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpg-jdk18on</artifactId>
+            <version>1.72</version>
+        </dependency>
     </dependencies>
 
     <build>

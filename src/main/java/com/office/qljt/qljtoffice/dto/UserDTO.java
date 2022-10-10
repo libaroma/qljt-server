@@ -24,10 +24,6 @@ public class UserDTO {
      */
     private String id;
 
-    /**
-     * openid
-     */
-    private String openid;
 
     /**
      * 学号/工号
@@ -43,26 +39,6 @@ public class UserDTO {
      * 头像
      */
     private String userAvatar;
-
-    /**
-     * 省份
-     */
-    private String userProvince;
-
-    /**
-     * 城市
-     */
-    private String userCity;
-
-    /**
-     * 国家
-     */
-    private String userCountry;
-
-    /**
-     * 语言
-     */
-    private String userLanguage;
 
     /**
      * 状态(1可用，0删除)

@@ -3,10 +3,9 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.User;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
-import com.office.qljt.qljtoffice.vo.PageResult;
-import com.office.qljt.qljtoffice.vo.Result;
-import com.office.qljt.qljtoffice.vo.UserVO;
+import com.office.qljt.qljtoffice.vo.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 续加仪
@@ -14,6 +13,36 @@ import com.office.qljt.qljtoffice.vo.UserVO;
  */
 public interface UserService extends IService<User> {
 
+    /**
+     * 尝试获取登录用户
+     *
+     * @return 返回
+     */
+    UserDTO getLoginUser();
+
+    /**
+     * 尝试解密openid
+     * @param iv
+     * @param encryptedData
+     * @param code
+     * @return
+     */
+    Result<?> decodeUerInfo(String iv, String encryptedData, String code);
+
+    /**
+     * 尝试解密openid
+     * @param code
+     * @return
+     */
+    Result<?> getOpenid(String code);
+
+    /**
+     * 尝试获取登录用户
+     *
+     * @param request 请求
+     * @return 返回
+     */
+    UserDTO getLoginUser(HttpServletRequest request);
 
     /**
      * 查询用户
@@ -38,6 +67,13 @@ public interface UserService extends IService<User> {
      */
     PageResult<UserDTO> listUsersDTO();
 
+    /**
+     * 条件查询用户列表
+     *
+     * @return 条件查询用户列表
+     */
+    PageResult<UserDTO> listUsersDTOByCondition(ConditionVO conditionVO);
+
 
     /**
      * 全部用户列表
@@ -52,4 +88,19 @@ public interface UserService extends IService<User> {
      * @param deleteVO 删除用户列表
      */
     void updateUsersDelete(DeleteVO deleteVO);
+
+    /**
+     * 从缓存里面拿到登录信息
+     *
+     * @param id id
+     * @return 从缓存里面拿到登录信息
+     */
+    UserDTO getUserDTOByUserIdFromRedis(String id);
+
+    /**
+     * 保存登录信息到缓存
+     *
+     * @param userDTO userInfo
+     */
+    void saveUserInfoToRedis(UserDTO userDTO);
 }

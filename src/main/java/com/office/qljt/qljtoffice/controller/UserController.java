@@ -5,11 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.service.UserService;
-import com.office.qljt.qljtoffice.utils.UserUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
-import com.office.qljt.qljtoffice.vo.PageResult;
-import com.office.qljt.qljtoffice.vo.Result;
-import com.office.qljt.qljtoffice.vo.UserVO;
+import com.office.qljt.qljtoffice.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +37,30 @@ public class UserController {
      */
     @ApiOperation(value = "获取当前登录用户")
     @GetMapping("/get")
-    public Result<UserDTO> getUserDTOByUserId() {
-        return Result.ok(UserUtils.getLoginUser());
+    public Result<UserDTO> getLoginUser() {
+        return Result.ok(userService.getLoginUser());
+    }
+
+    /**
+     * 解码小程序用户信息
+     *
+     * @return 解码小程序用户信息
+     */
+    @ApiOperation(value = "解码小程序用户信息")
+    @GetMapping("/decode")
+    public Result<?> decodeUserInfo(@RequestParam("iv") String iv, @RequestParam("encryptedData") String encryptedData, @RequestParam("code") String code) {
+        return userService.decodeUerInfo(iv, encryptedData, code);
+    }
+
+    /**
+     * 解码小程序openid
+     *
+     * @return 解码小程序openid
+     */
+    @ApiOperation(value = "解码小程序openid")
+    @GetMapping("/openid")
+    public Result<?> getOpenid(@RequestParam("code") String code) {
+        return userService.getOpenid(code);
     }
 
     /**
@@ -79,6 +97,18 @@ public class UserController {
     @GetMapping("/all")
     public Result<PageResult<UserDTO>> listAllUsersDTO() {
         return Result.ok(userService.listAllUsersDTO());
+    }
+
+    /**
+     * 条件查询用户列表
+     *
+     * @return 条件查询用户列表
+     */
+    @CheckUserAuth(role = ADMIN)
+    @ApiOperation(value = "条件查询用户列表")
+    @GetMapping("/condition")
+    public Result<PageResult<UserDTO>> listUsersDTOByCondition(ConditionVO conditionVO) {
+        return Result.ok(userService.listUsersDTOByCondition(conditionVO));
     }
 
     /**

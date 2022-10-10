@@ -59,7 +59,7 @@ public class GoodsRecordsController {
      *
      * @return 条件查询物资请领历史
      */
-    @CheckUserAuth(role = ADMIN)
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "条件查询物资请领历史")
     @GetMapping("/condition")
     public Result<PageResult<GoodsRecordsDTO>> listGoodsRecordsDTOByCondition(ConditionVO conditionVO) {

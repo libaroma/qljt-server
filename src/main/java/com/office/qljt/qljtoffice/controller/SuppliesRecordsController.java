@@ -61,7 +61,7 @@ public class SuppliesRecordsController {
      *
      * @return 条件查询设备借用历史
      */
-    @CheckUserAuth(role = ADMIN)
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "条件查询设备借用历史")
     @GetMapping("/condition")
     public Result<PageResult<SuppliesRecordsDTO>> listSpaceRecordsDTOByCondition(ConditionVO conditionVO) {

@@ -3,7 +3,8 @@ package com.office.qljt.qljtoffice.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.User;
-import io.lettuce.core.dynamic.annotation.Param;
+import com.office.qljt.qljtoffice.vo.ConditionVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -40,11 +41,18 @@ public interface UserDao extends BaseMapper<User> {
     List<UserDTO> listAllUsersDTO();
 
     /**
+     * 条件查询用户列表
+     *
+     * @return 条件查询用户列表
+     */
+    List<UserDTO> listUsersDTOByCondition(@Param("condition") ConditionVO condition);
+    /**
      * 通过sduId获取用户信息
      * @param sduId sduId
      * @return 通过sduId获取用户信息
      */
     UserDTO getUserDTOBySduId(@Param("sduId") String sduId);
+
     /**
      * 通过sduId获取用户信息
      * @param sduId sduId

@@ -1,13 +1,13 @@
 package com.office.qljt.qljtoffice.vo;
 
-import lombok.Data;
-import lombok.Builder;
-import com.baomidou.mybatisplus.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 
 /**
@@ -28,11 +28,6 @@ public class OperationLogVO {
    	@ApiModelProperty(name = "id",value="主键id",dataType = "Long")
 	private Long id;
 
-	/**
-	 * openid
-	 */
-   	@ApiModelProperty(name = "_openid",value="openid",dataType = "String")
-	private String openid;
 
 	/**
 	 * 操作用户id

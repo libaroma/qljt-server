@@ -28,8 +28,6 @@ public class DispatchRecordsVO {
    	@ApiModelProperty(name = "id",value="id",dataType = "String")
 	private String id;
 
-   	@ApiModelProperty(name = "openid",value="null",dataType = "String")
-	private String openid;
 
 	/**
 	 * 用户id
@@ -64,6 +62,12 @@ public class DispatchRecordsVO {
    	@NotBlank(message = "发文标题不能为空")
 	@ApiModelProperty(name = "title",value="发文标题",required = true,dataType = "String")
 	private String title;
+
+	/**
+	 * 签发领导
+	 */
+	@ApiModelProperty(name = "confirmUser",value="签发领导",required = true,dataType = "String")
+	private String confirmUser;
 
 	/**
 	 * 年份

@@ -3,14 +3,17 @@ package com.office.qljt.qljtoffice.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.DispatchMethodsDao;
 import com.office.qljt.qljtoffice.dao.DispatchRecordsDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.DispatchMethodsDTO;
 import com.office.qljt.qljtoffice.dto.DispatchRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.DispatchRecords;
 import com.office.qljt.qljtoffice.service.DispatchRecordsService;
 import com.office.qljt.qljtoffice.service.EmailService;
-import com.office.qljt.qljtoffice.utils.*;
+import com.office.qljt.qljtoffice.service.UserService;
+import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
+import com.office.qljt.qljtoffice.utils.IdWorker;
+import com.office.qljt.qljtoffice.utils.PageUtils;
+import com.office.qljt.qljtoffice.utils.TextUtils;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.DispatchRecordsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
@@ -38,7 +41,7 @@ public class DispatchRecordsServiceImpl extends ServiceImpl<DispatchRecordsDao, 
     private DispatchRecordsDao dispatchRecordsDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -65,7 +68,7 @@ public class DispatchRecordsServiceImpl extends ServiceImpl<DispatchRecordsDao, 
         DispatchMethodsDTO dispatchMethodsDTO = dispatchMethodsDao.getDispatchMethodsDTO(dispatchRecords.getMethod());
         //判断Method是否存在
         if (dispatchMethodsDTO == null) return Result.fail("发文方式不存在");
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || !loginUser.getId().equals(dispatchRecords.getUserId()))
             return Result.fail("登录用户id与申请用户id不一致，无权限");
         //确定中本年度该Method下的发文sequence

@@ -62,7 +62,7 @@ public class SpaceRecordsController {
      *
      * @return 条件查询会场预约历史
      */
-    @CheckUserAuth(role = ADMIN)
+    @CheckUserAuth(role = NORMAL)
     @ApiOperation(value = "条件查询会场预约历史")
     @GetMapping("/condition")
     public Result<PageResult<SpaceRecordsDTO>> listSpaceRecordsDTOByCondition(ConditionVO conditionVO) {

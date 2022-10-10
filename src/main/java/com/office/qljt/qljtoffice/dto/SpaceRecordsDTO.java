@@ -23,10 +23,6 @@ public class SpaceRecordsDTO {
 	 */
 	private String id;
 
-	/**
-	 * openid
-	 */
-	private String openid;
 
 	/**
 	 * 用户id

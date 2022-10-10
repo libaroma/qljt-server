@@ -26,7 +26,6 @@ public class DispatchRecords {
 	@TableId(value = "id")
 	private String id;
 
-	private String openid;
 
 	/**
 	 * 用户id
@@ -52,6 +51,11 @@ public class DispatchRecords {
 	 * 发文标题
 	 */
 	private String title;
+
+	/**
+	 * 签发领导
+	 */
+	private String confirmUser;
 
 	/**
 	 * 年份

@@ -43,49 +43,57 @@
     <select id="listSealRecordsDTO" resultMap="SealRecordsDTO">
         SELECT *
         FROM tb_seal_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllSealRecordsDTO" resultMap="SealRecordsDTO">
         SELECT *
         FROM tb_seal_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
     </select>
 
 
     <select id="listSealRecordsDTOByCondition" resultMap="SealRecordsDTO">
         SELECT *
+        FROM( SELECT *
         FROM tb_seal_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.seal != null">
                 and seal = #{condition.seal}
             </if>
             <if test="condition.date != null">
                 and date = #{condition.date}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
     <select id="listSealRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SealRecordsDTO">
         SELECT *
+        FROM( SELECT *
         FROM tb_seal_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.seal != null">
                 and seal = #{condition.seal}
             </if>
             <if test="condition.date != null">
                 and date = #{condition.date}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
 </mapper>

@@ -26,6 +26,7 @@ public interface SpaceRecordsDao extends BaseMapper<SpaceRecords> {
      */
     List<SpaceRecordsDTO> listSpaceRecordsDTO(@Param("current") Long current, @Param("size") Long size);
 
+
     /**
      * 获取全部会场预约列表
      *

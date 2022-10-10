@@ -3,13 +3,13 @@ package com.office.qljt.qljtoffice.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.SuppliesCategoryDao;
 import com.office.qljt.qljtoffice.dao.SuppliesRecordsDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO;
 import com.office.qljt.qljtoffice.dto.SuppliesRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.SuppliesRecords;
 import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.service.SuppliesRecordsService;
+import com.office.qljt.qljtoffice.service.UserService;
 import com.office.qljt.qljtoffice.utils.*;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
@@ -40,7 +40,7 @@ public class SuppliesRecordsServiceImpl extends ServiceImpl<SuppliesRecordsDao, 
     private SuppliesRecordsDao suppliesRecordsDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -66,7 +66,7 @@ public class SuppliesRecordsServiceImpl extends ServiceImpl<SuppliesRecordsDao, 
         SuppliesRecords suppliesRecords = BeanCopyUtils.copyObject(suppliesRecordsVO, SuppliesRecords.class);
         SuppliesCategoryDTO suppliesCategoryDTO = suppliesCategoryDao.getSuppliesCategoryDTO(suppliesRecords.getSuppliesCategory());
         if (suppliesCategoryDTO == null) return Result.fail("设备分类不存在");
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || !loginUser.getId().equals(suppliesRecords.getUserId()))
             return Result.fail("登录用户id与借用记录用户id不一致，无权限");
         if (TextUtils.isEmpty(suppliesRecords.getId())) suppliesRecords.setId(idWorker.nextId() + "");
@@ -81,8 +81,8 @@ public class SuppliesRecordsServiceImpl extends ServiceImpl<SuppliesRecordsDao, 
         SuppliesRecordsDTO suppliesRecordsDTO = suppliesRecordsDao.getSuppliesRecordsById(id);
         if (suppliesRecordsDTO == null) return Result.fail("没有此借用记录");
         if (suppliesRecordsDTO.getIsReturn() > 0) return Result.fail("已提交归还申请，无需重复申请");
-        UserDTO loginUser = UserUtils.getLoginUser();
-        if (loginUser == null || loginUser.getRole() < 1) return Result.fail("登录用户id与借用记录用户id不一致，无权限");
+        UserDTO loginUser = userService.getLoginUser();
+        if (loginUser == null || (!loginUser.getId().equals(suppliesRecordsDTO.getUserId())&&loginUser.getRole() < 1)) return Result.fail("登录用户id与借用记录用户id不一致，无权限");
         suppliesRecordsDTO.setIsReturn(1L);
         this.saveOrUpdate(BeanCopyUtils.copyObject(suppliesRecordsDTO, SuppliesRecords.class));
         String content = "<h2>这是归还物资通知</h2>\n" +
@@ -103,7 +103,7 @@ public class SuppliesRecordsServiceImpl extends ServiceImpl<SuppliesRecordsDao, 
         SuppliesRecordsDTO suppliesRecordsDTO = suppliesRecordsDao.getSuppliesRecordsById(id);
         if (suppliesRecordsDTO == null) return Result.fail("没有此借用记录");
         if (suppliesRecordsDTO.getIsReturn() > 1) return Result.fail("已经审核过啦！");
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || loginUser.getRole() < 1) return Result.fail("无权限操作！");
         suppliesRecordsDTO.setIsReturn(2L);
         this.saveOrUpdate(BeanCopyUtils.copyObject(suppliesRecordsDTO, SuppliesRecords.class));

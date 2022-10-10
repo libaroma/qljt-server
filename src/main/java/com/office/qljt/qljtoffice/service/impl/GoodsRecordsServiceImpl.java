@@ -3,7 +3,6 @@ package com.office.qljt.qljtoffice.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.GoodsDao;
 import com.office.qljt.qljtoffice.dao.GoodsRecordsDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.GoodsDTO;
 import com.office.qljt.qljtoffice.dto.GoodsRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
@@ -11,7 +10,11 @@ import com.office.qljt.qljtoffice.entity.Goods;
 import com.office.qljt.qljtoffice.entity.GoodsRecords;
 import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.service.GoodsRecordsService;
-import com.office.qljt.qljtoffice.utils.*;
+import com.office.qljt.qljtoffice.service.UserService;
+import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
+import com.office.qljt.qljtoffice.utils.IdWorker;
+import com.office.qljt.qljtoffice.utils.PageUtils;
+import com.office.qljt.qljtoffice.utils.TextUtils;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.GoodsRecordsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
@@ -40,7 +43,7 @@ public class GoodsRecordsServiceImpl extends ServiceImpl<GoodsRecordsDao, GoodsR
     private GoodsRecordsDao goodsRecordsDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -68,7 +71,7 @@ public class GoodsRecordsServiceImpl extends ServiceImpl<GoodsRecordsDao, GoodsR
         GoodsDTO goodsDTO = goodsDao.getGoodsDTO(goodsRecords.getGoodsId());
         if (goodsDTO == null) return Result.fail("物资不存在");
         //判断用户是否存在
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || !loginUser.getId().equals(goodsRecords.getUserId()))
             return Result.fail("登录用户id与申请用户id不一致，无权限");
         //需要更新物资数量信息

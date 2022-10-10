@@ -28,11 +28,6 @@ public class GoodsRecordsVO {
    	@ApiModelProperty(name = "id",value="id",dataType = "String")
 	private String id;
 
-	/**
-	 * openid
-	 */
-   	@ApiModelProperty(name = "openid",value="openid",dataType = "String")
-	private String openid;
 
 	/**
 	 * 用户id

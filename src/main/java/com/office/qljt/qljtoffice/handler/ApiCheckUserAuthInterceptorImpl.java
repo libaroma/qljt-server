@@ -8,8 +8,9 @@ package com.office.qljt.qljtoffice.handler;
 import com.alibaba.fastjson.JSON;
 import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.dto.UserDTO;
-import com.office.qljt.qljtoffice.utils.UserUtils;
+import com.office.qljt.qljtoffice.service.UserService;
 import com.office.qljt.qljtoffice.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,6 +24,9 @@ import static com.office.qljt.qljtoffice.constant.CommonConst.APPLICATION_JSON;
 public class ApiCheckUserAuthInterceptorImpl implements HandlerInterceptor {
 
 
+    @Autowired
+    UserService userService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -32,7 +36,7 @@ public class ApiCheckUserAuthInterceptorImpl implements HandlerInterceptor {
             CheckUserAuth checkUserAuth = handlerMethod.getMethodAnnotation(CheckUserAuth.class);
             if (checkUserAuth != null) {
                 //判断用户权限
-                UserDTO userDTO = UserUtils.getLoginUser();
+                UserDTO userDTO = userService.getLoginUser();
                 if (userDTO == null) {
                     response.setContentType(APPLICATION_JSON);
                     response.getWriter().write(JSON.toJSONString(Result.fail("用户未登录")));

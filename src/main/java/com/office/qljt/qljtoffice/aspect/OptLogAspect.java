@@ -5,8 +5,8 @@ import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dao.OperationLogDao;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.OperationLog;
+import com.office.qljt.qljtoffice.service.UserService;
 import com.office.qljt.qljtoffice.utils.IpUtils;
-import com.office.qljt.qljtoffice.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
@@ -43,6 +43,8 @@ public class OptLogAspect {
     public void optLogPointCut() {
     }
 
+    @Autowired
+    private UserService userService;
 
     /**
      * 正常返回通知，拦截用户操作日志，连接点正常执行完成后执行， 如果连接点抛出异常，则不会执行
@@ -74,7 +76,7 @@ public class OptLogAspect {
         // 请求IP
         String ipAddress = IpUtils.getIpAddress(request);
         //获取登录用户
-        UserDTO userDTO = UserUtils.getLoginUser();
+        UserDTO userDTO = userService.getLoginUser(request);
         //设置信息
         OperationLog operationLog = OperationLog.builder()
                 // 操作模块
@@ -93,8 +95,6 @@ public class OptLogAspect {
                 .responseData(JSON.toJSONString(keys))
                 // 请求用户ID
                 .userId(userDTO.getId())
-                // 请求用户openid
-                .openid(userDTO.getOpenid())
                 // 请求IP
                 .ipAddress(ipAddress)
                 .ipSource(IpUtils.getIpSource(ipAddress))

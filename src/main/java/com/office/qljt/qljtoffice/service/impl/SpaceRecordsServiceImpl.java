@@ -3,14 +3,17 @@ package com.office.qljt.qljtoffice.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.office.qljt.qljtoffice.dao.SpaceDao;
 import com.office.qljt.qljtoffice.dao.SpaceRecordsDao;
-import com.office.qljt.qljtoffice.dao.UserDao;
 import com.office.qljt.qljtoffice.dto.SpaceDTO;
 import com.office.qljt.qljtoffice.dto.SpaceRecordsDTO;
 import com.office.qljt.qljtoffice.dto.UserDTO;
 import com.office.qljt.qljtoffice.entity.SpaceRecords;
 import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.service.SpaceRecordsService;
-import com.office.qljt.qljtoffice.utils.*;
+import com.office.qljt.qljtoffice.service.UserService;
+import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
+import com.office.qljt.qljtoffice.utils.IdWorker;
+import com.office.qljt.qljtoffice.utils.PageUtils;
+import com.office.qljt.qljtoffice.utils.TextUtils;
 import com.office.qljt.qljtoffice.vo.ConditionVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -42,7 +45,7 @@ public class SpaceRecordsServiceImpl extends ServiceImpl<SpaceRecordsDao, SpaceR
     private SpaceRecordsDao spaceRecordsDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -69,7 +72,7 @@ public class SpaceRecordsServiceImpl extends ServiceImpl<SpaceRecordsDao, SpaceR
         SpaceDTO spaceDTO = spaceDao.getSpaceDTO(spaceRecords.getSpace());
         if (spaceDTO == null) return Result.fail("会场不存在");
         //判断用户是否存在
-        UserDTO loginUser = UserUtils.getLoginUser();
+        UserDTO loginUser = userService.getLoginUser();
         if (loginUser == null || !loginUser.getId().equals(spaceRecords.getUserId()))
             return Result.fail("登录用户id与申请用户id不一致，无权限");
         //判断时间是否冲突
@@ -114,10 +117,10 @@ public class SpaceRecordsServiceImpl extends ServiceImpl<SpaceRecordsDao, SpaceR
     public Result<?> cancelSpaceRecords(String id) {
         SpaceRecordsDTO spaceRecordsDTO = spaceRecordsDao.getSpaceRecordsById(id);
         if (spaceRecordsDTO == null) return Result.fail("查无此预约记录");
-        UserDTO loginUser = UserUtils.getLoginUser();
-        if (loginUser == null || !loginUser.getId().equals(spaceRecordsDTO.getUserId()) || loginUser.getRole() < 1)
+        UserDTO loginUser = userService.getLoginUser();
+        if (loginUser == null || (!loginUser.getId().equals(spaceRecordsDTO.getUserId()) && loginUser.getRole() < 1))
             return Result.fail("登录id与用户不一致，无权限");
-        this.removeById(BeanCopyUtils.copyObject(spaceRecordsDTO,SpaceRecords.class));
+        this.removeById(BeanCopyUtils.copyObject(spaceRecordsDTO, SpaceRecords.class));
         String[] week = "日一二三四五六".split("");
         String content = "<h2>这是一个取消会场预约通知</h2>\n" +
                 prefix_d + " <h4>" + loginUser.getSduInfo().getSduName() + " </h4>取消预约了<h4>" + spaceRecordsDTO.getSpaceInfo().getName() + " </h4>" + endfix_d +

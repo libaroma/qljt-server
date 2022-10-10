@@ -46,48 +46,56 @@
     <select id="listSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
         SELECT *
         FROM tb_space_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
         LIMIT #{current},#{size}
     </select>
 
     <select id="listAllSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
         SELECT *
         FROM tb_space_records
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC
     </select>
 
     <select id="listSpaceRecordsDTOByCondition" resultMap="SpaceRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_space_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.space != null">
                 and space = #{condition.space}
             </if>
             <if test="condition.date != null">
                 and date = #{condition.date}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
     <select id="listSpaceRecordsDTOByConditionBrief" resultType="com.office.qljt.qljtoffice.dto.SpaceRecordsDTO">
         SELECT *
+        FROM(SELECT *
         FROM tb_space_records
         <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId}
+            </if>
             <if test="condition.space != null">
                 and space = #{condition.space}
             </if>
             <if test="condition.date != null">
                 and date = #{condition.date}
             </if>
-            <if test="condition.current != null and condition.size != null">
-                limit #{condition.current},#{condition.size}
-            </if>
         </where>
-        ORDER BY `time` ASC
+        ORDER BY `time` DESC) a
+        <if test="condition.current != null and condition.size != null">
+            limit #{condition.current},#{condition.size}
+        </if>
     </select>
 
     <select id="getSpaceRecordsById" resultMap="SpaceRecordsDTO">

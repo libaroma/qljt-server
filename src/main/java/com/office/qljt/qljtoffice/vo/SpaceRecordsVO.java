@@ -28,8 +28,6 @@ public class SpaceRecordsVO {
    	@ApiModelProperty(name = "id",value="id",dataType = "String")
 	private String id;
 
-   	@ApiModelProperty(name = "openid",value="null",dataType = "String")
-	private String openid;
 
 	/**
 	 * 用户id
