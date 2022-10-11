@@ -5,6 +5,7 @@
     <select id="listSuppliesCategoryDTO" resultType="com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO">
         SELECT *
         FROM tb_supplies_category
+        WHERE `status` = 1
         ORDER BY `time` ASC
     </select>
 
@@ -12,6 +13,7 @@
         SELECT *
         FROM tb_supplies_category
         WHERE `id` = #{id}
+          AND `status` = 1
     </select>
 
 

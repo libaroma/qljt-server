@@ -50,7 +50,7 @@
         LIMIT #{current},#{size}
     </select>
 
-    <select id="listAllSpaceRecordsDTO" resultMap="SpaceRecordsDTO">
+    <select id="listAllSpaceRecordsDTO" resultType="com.office.qljt.qljtoffice.dto.SpaceRecordsDTO">
         SELECT *
         FROM tb_space_records
         ORDER BY `time` DESC

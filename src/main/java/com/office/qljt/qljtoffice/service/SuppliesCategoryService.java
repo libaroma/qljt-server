@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO;
 import com.office.qljt.qljtoffice.entity.SuppliesCategory;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 
 /**
@@ -31,5 +31,5 @@ public interface SuppliesCategoryService extends IService<SuppliesCategory> {
      *
      * @param deleteVO 删除设备分类信息
      */
-    void updateSuppliesCategoryDelete(DeleteVO deleteVO);
+    void updateSuppliesCategoryDelete(StatusVO deleteVO);
 }

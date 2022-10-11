@@ -4,7 +4,7 @@ import com.office.qljt.qljtoffice.annotation.CheckTooFrequentCommit;
 import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.dto.GoodsDTO;
 import com.office.qljt.qljtoffice.service.GoodsService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import io.swagger.annotations.Api;
@@ -59,15 +59,15 @@ public class GoodsController {
     /**
      * 删除物资
      *
-     * @param deleteVO 物资信息
+     * @param statusVO 物资信息
      * @return 物资会场
      */
     @CheckTooFrequentCommit
     @CheckUserAuth(role = ADMIN)
     @ApiOperation("删除物资")
     @PostMapping("/del")
-    public Result<?> saveOrUpdateGoods(@Valid @RequestBody DeleteVO deleteVO) {
-        goodsService.updateGoodsDelete(deleteVO);
+    public Result<?> saveOrUpdateGoods(@Valid @RequestBody StatusVO statusVO) {
+        goodsService.updateGoodsDelete(statusVO);
         return Result.ok();
     }
 

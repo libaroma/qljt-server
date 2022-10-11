@@ -5,12 +5,15 @@
     <select id="listSealsDTO" resultType="com.office.qljt.qljtoffice.dto.SealDTO">
         SELECT *
         FROM tb_seal
+        WHERE `status` = 1
         ORDER BY `time` ASC
     </select>
 
     <select id="getSealDTO" resultType="com.office.qljt.qljtoffice.dto.SealDTO">
         SELECT *
-        FROM tb_seal WHERE `id`=#{id}
+        FROM tb_seal
+        WHERE `id` = #{id}
+          AND `status` = 1
     </select>
 
 </mapper>

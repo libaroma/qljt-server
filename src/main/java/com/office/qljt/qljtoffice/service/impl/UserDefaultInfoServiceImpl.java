@@ -11,7 +11,7 @@ import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.PageUtils;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.UserDefaultInfoVO;
@@ -64,7 +64,7 @@ public class UserDefaultInfoServiceImpl extends ServiceImpl<UserDefaultInfoDao, 
 
 
     @Override
-    public void updateUserDefaultInfosDelete(DeleteVO deleteVO) {
+    public void updateUserDefaultInfosDelete(StatusVO deleteVO) {
         List<UserDefaultInfo> userDefaultInfoList = deleteVO.getIdList().stream()
                 .map(id -> UserDefaultInfo.builder()
                         .id(id)

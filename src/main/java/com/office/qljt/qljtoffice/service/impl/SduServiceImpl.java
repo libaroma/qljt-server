@@ -8,7 +8,7 @@ import com.office.qljt.qljtoffice.service.SduService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.PageUtils;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SduVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class SduServiceImpl extends ServiceImpl<SduDao, Sdu> implements SduServi
     }
 
     @Override
-    public void updateSdusDelete(DeleteVO deleteVO) {
+    public void updateSdusDelete(StatusVO deleteVO) {
         List<Sdu> sduList = deleteVO.getIdList().stream()
                 .map(id -> Sdu.builder()
                         .id(id)

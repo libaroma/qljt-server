@@ -8,7 +8,7 @@ import com.office.qljt.qljtoffice.service.DispatchMethodsService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.DispatchMethodsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class DispatchMethodsServiceImpl extends ServiceImpl<DispatchMethodsDao, 
 
 
     @Override
-    public void updateDispatchMethodsDelete(DeleteVO deleteVO) {
+    public void updateDispatchMethodsDelete(StatusVO deleteVO) {
         List<DispatchMethods> dispatchMethodsList = deleteVO.getIdList().stream()
                 .map(id -> DispatchMethods.builder()
                         .id(id)

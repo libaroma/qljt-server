@@ -46,7 +46,7 @@
         LIMIT #{current},#{size}
     </select>
 
-    <select id="listAllGoodsRecordsDTO" resultMap="GoodsRecordsDTO">
+    <select id="listAllGoodsRecordsDTO" resultType="com.office.qljt.qljtoffice.dto.GoodsRecordsDTO">
         SELECT *
         FROM tb_goods_records
         ORDER BY `time` DESC

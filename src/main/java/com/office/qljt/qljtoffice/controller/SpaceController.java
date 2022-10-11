@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.SpaceDTO;
 import com.office.qljt.qljtoffice.service.SpaceService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.SpaceVO;
@@ -64,16 +64,16 @@ public class SpaceController {
     /**
      * 删除会场
      *
-     * @param deleteVO 会场信息
+     * @param statusVO 会场信息
      * @return 删除会场
      */
     @CheckTooFrequentCommit
     @CheckUserAuth(role = ADMIN)
     @OptLog(optType = REMOVE)
     @ApiOperation("删除会场")
-    @PostMapping("/del")
-    public Result<?> saveOrUpdateSpace(@Valid @RequestBody DeleteVO deleteVO) {
-        spaceService.updateSpaceDelete(deleteVO);
+    @DeleteMapping("/del")
+    public Result<?> saveOrUpdateSpace(@Valid @RequestBody StatusVO statusVO) {
+        spaceService.updateSpaceDelete(statusVO);
         return Result.ok();
     }
 

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
+
 /**
  * @author 续加仪
  * @date 2022/10/6
@@ -197,6 +199,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         return new PageResult<>(userDao.listUsersDTO(PageUtils.getCurrent() * PageUtils.getSize(), PageUtils.getSize()),
                 PageUtils.getCurrent(), PageUtils.getSize(), userDao.selectCount(null));
     }
+
     @Override
     public PageResult<UserDTO> listUsersDTOByCondition(ConditionVO conditionVO) {
         return new PageResult<>(userDao.listUsersDTOByCondition(conditionVO), conditionVO.getCurrent() != null ? conditionVO.getCurrent() : 0L, conditionVO.getSize() != null ? conditionVO.getSize() : userDao.selectCount(null), userDao.selectCount(null));
@@ -208,13 +211,17 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     @Override
-    public void updateUsersDelete(DeleteVO deleteVO) {
-        List<User> userList = deleteVO.getIdList().stream()
+    public void updateUsersStatus(StatusVO statusVO) {
+        List<User> userList = statusVO.getIdList().stream()
                 .map(id -> User.builder()
                         .id(id)
-                        .status(deleteVO.getStatus())
+                        .status(statusVO.getStatus())
+                        .role(statusVO.getRole())
                         .build()).collect(Collectors.toList());
         this.updateBatchById(userList);
+        for (User user : userList) {
+            redisService.del("login_" + user.getId());
+        }
     }
 
     @Override
@@ -224,6 +231,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             userDTO = userDao.getUserDTOByUserId(id);
             saveUserInfoToRedis(userDTO);
         }
+        if (userDTO.getStatus() < 1) {
+            redisService.del("login_" + id);
+            return null;
+        }
         return userDTO;
     }
 
@@ -231,5 +242,15 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public void saveUserInfoToRedis(UserDTO userDTO) {
         if (userDTO != null)
             redisService.set("login_" + userDTO.getId(), JSONObject.toJSONString(userDTO), 2 * 60 * 60);
+    }
+
+    @Override
+    public Result<?> deleteUserById(String id) {
+        if (TextUtils.isEmpty(id)) return Result.fail("id不能为空，删除失败！");
+        UserDTO loginUser = getLoginUser();
+        if (loginUser == null || loginUser.getRole() < ADMIN) return Result.fail("无权限，删除失败！");
+        this.removeById(id);
+        redisService.del("login_" + id);
+        return Result.ok("删除成功！");
     }
 }

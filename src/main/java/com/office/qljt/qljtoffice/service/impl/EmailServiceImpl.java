@@ -10,7 +10,7 @@ import com.office.qljt.qljtoffice.service.EmailService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.EmailVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -76,7 +76,7 @@ public class EmailServiceImpl extends ServiceImpl<EmailDao, Email> implements Em
 
 
     @Override
-    public void updateEmailDelete(DeleteVO deleteVO) {
+    public void updateEmailDelete(StatusVO deleteVO) {
         List<Email> emailList = deleteVO.getIdList().stream()
                 .map(id -> Email.builder()
                         .id(id)

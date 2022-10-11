@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.EmailDTO;
 import com.office.qljt.qljtoffice.service.EmailService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.EmailVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -82,7 +82,7 @@ public class EmailController {
     @CheckUserAuth(role = ADMIN)
     @ApiOperation(value = "批量删除邮箱")
     @DeleteMapping("/del")
-    public Result<?> updateEmailDelete(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> updateEmailDelete(@Valid @RequestBody StatusVO deleteVO) {
         emailService.updateEmailDelete(deleteVO);
         return Result.ok();
     }

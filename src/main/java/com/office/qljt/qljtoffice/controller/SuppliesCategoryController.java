@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.SuppliesCategoryDTO;
 import com.office.qljt.qljtoffice.service.SuppliesCategoryService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import io.swagger.annotations.Api;
@@ -71,7 +71,7 @@ public class SuppliesCategoryController {
     @OptLog(optType = REMOVE)
     @ApiOperation("删除设备分类")
     @PostMapping("/del")
-    public Result<?> saveOrUpdateSuppliesCategory(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> saveOrUpdateSuppliesCategory(@Valid @RequestBody StatusVO deleteVO) {
         suppliesCategoryService.updateSuppliesCategoryDelete(deleteVO);
         return Result.ok();
     }

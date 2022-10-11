@@ -6,11 +6,13 @@
         SELECT *
         FROM tb_sdu
         WHERE `id` = #{sduId}
+          AND `status` = 1
     </select>
 
     <select id="listSdusDTO" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
         SELECT *
         FROM tb_sdu
+        WHERE `status` = 1
         ORDER BY `time` ASC
         LIMIT #{current}, #{size}
     </select>
@@ -18,6 +20,7 @@
     <select id="listAllSdusDTO" resultType="com.office.qljt.qljtoffice.dto.SduDTO">
         SELECT *
         FROM tb_sdu
+        WHERE `status` = 1
         ORDER BY `time` ASC
     </select>
 

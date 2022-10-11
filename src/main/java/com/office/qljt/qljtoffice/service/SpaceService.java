@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.SpaceDTO;
 import com.office.qljt.qljtoffice.entity.Space;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SpaceVO;
 
@@ -32,5 +32,5 @@ public interface SpaceService extends IService<Space> {
      *
      * @param deleteVO 删除会场
      */
-    void updateSpaceDelete(DeleteVO deleteVO);
+    void updateSpaceDelete(StatusVO deleteVO);
 }

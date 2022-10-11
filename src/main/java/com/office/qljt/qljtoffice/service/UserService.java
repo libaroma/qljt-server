@@ -83,11 +83,11 @@ public interface UserService extends IService<User> {
     PageResult<UserDTO> listAllUsersDTO();
 
     /**
-     * 删除用户
+     * 变更用户状态
      *
-     * @param deleteVO 删除用户列表
+     * @param statusVO 变更用户状态
      */
-    void updateUsersDelete(DeleteVO deleteVO);
+    void updateUsersStatus(StatusVO statusVO);
 
     /**
      * 从缓存里面拿到登录信息
@@ -103,4 +103,12 @@ public interface UserService extends IService<User> {
      * @param userDTO userInfo
      */
     void saveUserInfoToRedis(UserDTO userDTO);
+
+    /**
+     * 删除用户
+     *
+     * @param id id
+     * @return 结果
+     */
+    Result<?> deleteUserById(String id);
 }

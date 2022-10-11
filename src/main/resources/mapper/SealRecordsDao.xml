@@ -47,7 +47,7 @@
         LIMIT #{current},#{size}
     </select>
 
-    <select id="listAllSealRecordsDTO" resultMap="SealRecordsDTO">
+    <select id="listAllSealRecordsDTO" resultType="com.office.qljt.qljtoffice.dto.SealRecordsDTO">
         SELECT *
         FROM tb_seal_records
         ORDER BY `time` DESC

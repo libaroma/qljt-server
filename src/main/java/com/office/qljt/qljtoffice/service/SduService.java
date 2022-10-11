@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.SduDTO;
 import com.office.qljt.qljtoffice.entity.Sdu;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SduVO;
 
@@ -25,7 +25,7 @@ public interface SduService extends IService<Sdu> {
      *
      * @param deleteVO sdu Id
      */
-    void updateSdusDelete(DeleteVO deleteVO);
+    void updateSdusDelete(StatusVO deleteVO);
 
     /**
      * 获取sdu列表

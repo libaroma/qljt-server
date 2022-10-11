@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.DispatchMethodsDTO;
 import com.office.qljt.qljtoffice.entity.DispatchMethods;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.DispatchMethodsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 
@@ -33,5 +33,5 @@ public interface DispatchMethodsService extends IService<DispatchMethods> {
      *
      * @param deleteVO 发文登记方式id列表
      */
-    void updateDispatchMethodsDelete(DeleteVO deleteVO);
+    void updateDispatchMethodsDelete(StatusVO deleteVO);
 }

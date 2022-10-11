@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.GoodsDTO;
 import com.office.qljt.qljtoffice.entity.Goods;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 
 /**
@@ -31,5 +31,5 @@ public interface GoodsService extends IService<Goods> {
      *
      * @param deleteVO 删除物资
      */
-    void updateGoodsDelete(DeleteVO deleteVO);
+    void updateGoodsDelete(StatusVO deleteVO);
 }

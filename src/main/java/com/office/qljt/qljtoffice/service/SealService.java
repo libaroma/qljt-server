@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.entity.Seal;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SealVO;
 
@@ -33,5 +33,5 @@ public interface SealService extends IService<Seal> {
      *
      * @param deleteVO 公章id
      */
-    void updateSealDelete(DeleteVO deleteVO);
+    void updateSealDelete(StatusVO deleteVO);
 }

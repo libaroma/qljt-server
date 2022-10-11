@@ -8,7 +8,7 @@ import com.office.qljt.qljtoffice.service.SpaceService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SpaceVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceDao, Space> implements Sp
     }
 
     @Override
-    public void updateSpaceDelete(DeleteVO deleteVO) {
+    public void updateSpaceDelete(StatusVO deleteVO) {
         List<Space> spaceList = deleteVO.getIdList().stream()
                 .map(id -> Space.builder()
                         .id(id)

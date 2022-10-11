@@ -29,12 +29,14 @@
         SELECT *
         FROM tb_user
         WHERE `id` = #{id}
+          AND `status` = 1
     </select>
 
     <select id="getUserDTOBySduId" resultMap="UserDTO">
         SELECT *
         FROM tb_user
         WHERE `sdu_id` = #{sduId}
+          AND `status` = 1
         LIMIT 1
     </select>
 
@@ -43,18 +45,20 @@
         FROM tb_user
         WHERE `id` = #{id}
           AND `sdu_id` = #{sduId}
+          AND `status` = 1
         LIMIT 1
     </select>
 
     <select id="listUsersDTO" resultMap="UserDTO">
         SELECT *
         FROM tb_user
-        ORDER BY `time` ASC
+        WHERE `status` = 1
+        ORDER BY `sdu_id` ASC
         LIMIT #{current},#{size}
     </select>
 
 
-    <select id="listUsersDTOByCondition" resultType="com.office.qljt.qljtoffice.dto.UserDTO">
+    <select id="listUsersDTOByCondition" resultMap="UserDTO">
         SELECT *
         FROM( SELECT *
         FROM tb_user
@@ -63,7 +67,7 @@
                 and `role` = #{condition.role}
             </if>
         </where>
-        ORDER BY `time` DESC ) a
+        ORDER BY `sdu_id` DESC ) a
         <if test="condition.current != null and condition.size != null">
             limit #{condition.current},#{condition.size}
         </if>
@@ -72,7 +76,7 @@
     <select id="listAllUsersDTO" resultMap="UserDTO">
         SELECT *
         FROM tb_user
-        ORDER BY `time` ASC
+        ORDER BY `sdu_id` ASC
     </select>
 
 </mapper>

@@ -47,7 +47,7 @@ public class EmailConsumer {
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage,true);
-            mimeMessageHelper.setFrom(email);
+            mimeMessageHelper.setFrom("来自齐鲁交通学院办公小助手 <"+email+">");
             List<EmailAttachmentDTO> attachmentList = emailNoticeInfoDTO.getAttachmentList();
             mimeMessageHelper.setTo(emailNoticeInfoDTO.getEmail());
             mimeMessageHelper.setSubject(emailNoticeInfoDTO.getSubject());

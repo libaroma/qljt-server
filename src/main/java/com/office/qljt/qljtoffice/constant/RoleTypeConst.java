@@ -17,8 +17,12 @@ public class RoleTypeConst {
      */
     public static final long ADMIN = 1L;
     /**
+     * 办公室老师
+     */
+    public static final long OFFICE_TEADCHER = 2L;
+    /**
      * 超级管理员
      */
-    public static final long SUPER_ADMIN = 2L;
+    public static final long SUPER_ADMIN = 3L;
 
 }

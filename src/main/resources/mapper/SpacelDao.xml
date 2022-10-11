@@ -5,6 +5,7 @@
     <select id="listSpacesDTO" resultType="com.office.qljt.qljtoffice.dto.SpaceDTO">
         SELECT *
         FROM tb_space
+        WHERE `status` = 1
         ORDER BY `time` ASC
     </select>
 
@@ -12,6 +13,7 @@
         SELECT *
         FROM tb_space
         WHERE `id` = #{sduId}
+          AND `status` = 1
     </select>
 
 

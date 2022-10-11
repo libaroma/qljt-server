@@ -5,13 +5,13 @@
     <select id="listGoodsDTO" resultType="com.office.qljt.qljtoffice.dto.GoodsDTO">
         SELECT *
         FROM tb_goods
-        ORDER BY `time` ASC
+        ORDER BY `time` ASC AND `status`=1
     </select>
 
     <select id="getGoodsDTO" resultType="com.office.qljt.qljtoffice.dto.GoodsDTO">
         SELECT *
         FROM tb_goods
-        WHERE `id` = #{id}
+        WHERE `id` = #{id} AND `status`=1
     </select>
 
 </mapper>

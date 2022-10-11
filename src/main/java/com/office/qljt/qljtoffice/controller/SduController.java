@@ -4,7 +4,7 @@ import com.office.qljt.qljtoffice.annotation.CheckTooFrequentCommit;
 import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.dto.SduDTO;
 import com.office.qljt.qljtoffice.service.SduService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.SduVO;
@@ -79,7 +79,7 @@ public class SduController {
     @CheckUserAuth(role = ADMIN)
     @ApiOperation(value = "删除学号信息")
     @DeleteMapping("/del")
-    public Result<?> updateSdusDelete(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> updateSdusDelete(@Valid @RequestBody StatusVO deleteVO) {
         sduService.updateSdusDelete(deleteVO);
         return Result.ok();
     }

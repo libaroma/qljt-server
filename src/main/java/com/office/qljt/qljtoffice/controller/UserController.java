@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.office.qljt.qljtoffice.constant.OptTypeConst.REMOVE;
-import static com.office.qljt.qljtoffice.constant.OptTypeConst.SAVE_OR_UPDATE;
+import static com.office.qljt.qljtoffice.constant.OptTypeConst.*;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.ADMIN;
 import static com.office.qljt.qljtoffice.constant.RoleTypeConst.NORMAL;
 
@@ -127,19 +126,35 @@ public class UserController {
     }
 
     /**
-     * 删除用户
+     * 变更用户状态
      *
-     * @param deleteVO 用户id列表
-     * @return 删除用户
+     * @param statusVO 用户id列表
+     * @return 变更用户状态
+     */
+    @CheckTooFrequentCommit
+    @CheckUserAuth(role = ADMIN)
+    @OptLog(optType = UPDATE)
+    @ApiOperation(value = "变更用户状态")
+    @PostMapping("/status")
+    public Result<?> updateUsersStatus(@Valid @RequestBody StatusVO statusVO) {
+        userService.updateUsersStatus(statusVO);
+        return Result.ok();
+    }
+
+
+    /**
+     * 变更用户状态
+     *
+     * @param id 用户id
+     * @return 变更用户状态
      */
     @CheckTooFrequentCommit
     @CheckUserAuth(role = ADMIN)
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除用户")
-    @DeleteMapping("/del")
-    public Result<?> updateUsersDelete(@Valid @RequestBody DeleteVO deleteVO) {
-        userService.updateUsersDelete(deleteVO);
-        return Result.ok();
+    @DeleteMapping("/del/{id}")
+    public Result<?> deleteUserById(@PathVariable("id")String id) {
+        return userService.deleteUserById(id);
     }
 
 }

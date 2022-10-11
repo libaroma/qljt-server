@@ -20,8 +20,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "逻辑删除")
-public class DeleteVO {
+@ApiModel(description = "状态改变")
+public class StatusVO {
 
     /**
      * id列表
@@ -36,5 +36,11 @@ public class DeleteVO {
     @NotNull(message = "状态值不能为空")
     @ApiModelProperty(name = "status", value = "删除状态", required = true, dataType = "Integer")
     private Long status;
+
+    /**
+     * 角色信息,0为普通用户，1为管理，2为办公室老师，3为超级管理
+     */
+    @ApiModelProperty(name = "role", value = "角色信息", required = true, dataType = "Integer")
+    private Long role;
 
 }

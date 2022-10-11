@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.UserDefaultInfoDTO;
 import com.office.qljt.qljtoffice.service.UserDefaultInfoService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.UserDefaultInfoVO;
@@ -70,7 +70,7 @@ public class UserDefaultInfoController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除用户默认信息")
     @DeleteMapping("/del")
-    public Result<?> updateUserDefaultInfosDelete(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> updateUserDefaultInfosDelete(@Valid @RequestBody StatusVO deleteVO) {
         userDefaultInfoService.updateUserDefaultInfosDelete(deleteVO);
         return Result.ok();
     }

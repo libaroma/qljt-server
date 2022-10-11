@@ -8,7 +8,7 @@ import com.office.qljt.qljtoffice.service.GoodsService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsDao, Goods> implements Go
     }
 
     @Override
-    public void updateGoodsDelete(DeleteVO deleteVO) {
+    public void updateGoodsDelete(StatusVO deleteVO) {
         List<Goods> goodsList = deleteVO.getIdList().stream()
                 .map(id -> Goods.builder()
                         .id(id)

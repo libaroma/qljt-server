@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.DispatchMethodsDTO;
 import com.office.qljt.qljtoffice.service.DispatchMethodsService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.DispatchMethodsVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -71,7 +71,7 @@ public class DispatchMethodsController {
     @CheckUserAuth(role = ADMIN)
     @ApiOperation(value = "批量删除发文登记方式")
     @DeleteMapping("/del")
-    public Result<?> updateDispatchMethodsDelete(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> updateDispatchMethodsDelete(@Valid @RequestBody StatusVO deleteVO) {
         dispatchMethodsService.updateDispatchMethodsDelete(deleteVO);
         return Result.ok();
     }

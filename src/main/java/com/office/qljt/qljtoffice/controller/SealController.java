@@ -5,7 +5,7 @@ import com.office.qljt.qljtoffice.annotation.CheckUserAuth;
 import com.office.qljt.qljtoffice.annotation.OptLog;
 import com.office.qljt.qljtoffice.dto.SealDTO;
 import com.office.qljt.qljtoffice.service.SealService;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.SealVO;
@@ -73,7 +73,7 @@ public class SealController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "批量删除公章")
     @DeleteMapping("/del")
-    public Result<?> updateSealDelete(@Valid @RequestBody DeleteVO deleteVO) {
+    public Result<?> updateSealDelete(@Valid @RequestBody StatusVO deleteVO) {
         sealService.updateSealDelete(deleteVO);
         return Result.ok();
     }

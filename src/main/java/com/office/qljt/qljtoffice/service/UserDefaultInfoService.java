@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.UserDefaultInfoDTO;
 import com.office.qljt.qljtoffice.entity.UserDefaultInfo;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.Result;
 import com.office.qljt.qljtoffice.vo.UserDefaultInfoVO;
@@ -35,5 +35,5 @@ public interface UserDefaultInfoService extends IService<UserDefaultInfo> {
      *
      * @param deleteVO 删除用户默认信息列表
      */
-    void updateUserDefaultInfosDelete(DeleteVO deleteVO);
+    void updateUserDefaultInfosDelete(StatusVO deleteVO);
 }

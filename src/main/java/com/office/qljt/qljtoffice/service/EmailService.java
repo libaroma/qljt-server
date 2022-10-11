@@ -3,7 +3,7 @@ package com.office.qljt.qljtoffice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.office.qljt.qljtoffice.dto.*;
 import com.office.qljt.qljtoffice.entity.*;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.EmailVO;
 import com.office.qljt.qljtoffice.vo.Result;
@@ -29,7 +29,7 @@ public interface EmailService extends IService<Email> {
      *
      * @param deleteVO 邮箱id列表
      */
-    void updateEmailDelete(DeleteVO deleteVO);
+    void updateEmailDelete(StatusVO deleteVO);
 
     /**
      * 保存/更新邮箱

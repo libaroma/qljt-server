@@ -8,7 +8,7 @@ import com.office.qljt.qljtoffice.service.SealService;
 import com.office.qljt.qljtoffice.utils.BeanCopyUtils;
 import com.office.qljt.qljtoffice.utils.IdWorker;
 import com.office.qljt.qljtoffice.utils.TextUtils;
-import com.office.qljt.qljtoffice.vo.DeleteVO;
+import com.office.qljt.qljtoffice.vo.StatusVO;
 import com.office.qljt.qljtoffice.vo.PageResult;
 import com.office.qljt.qljtoffice.vo.SealVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class SealServiceImpl extends ServiceImpl<SealDao, Seal> implements SealS
 
 
     @Override
-    public void updateSealDelete(DeleteVO deleteVO) {
+    public void updateSealDelete(StatusVO deleteVO) {
         List<Seal> sealList = deleteVO.getIdList().stream()
                 .map(id -> Seal.builder()
                         .id(id)
